@@ -1,0 +1,5 @@
+@if(mensaje) {
+    <div class="notification" [ngClass]="{'success': tipo === 'success', 'error': tipo === 'error'}">
+        {{ mensaje }}
+      </div>
+}

@@ -1,0 +1,21 @@
+.notification {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 0;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+    z-index: 1000;
+    color: #fff;
+    text-align: center;
+    transition: opacity 0.3s ease;
+  }
+
+  .success {
+    background-color: #28a745;
+  }
+  
+  .error {
+    background-color: #e24f5e;
+  }

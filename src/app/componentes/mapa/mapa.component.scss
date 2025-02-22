@@ -1,0 +1,84 @@
+html, body {
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  height: 100%;
+}
+#map {
+  position: relative !important;
+  z-index: 1;
+}
+
+.filtro {
+  position: absolute !important;
+  top: 1rem;
+  right: 1rem;
+  z-index: 9999 !important;
+  max-width: 250px; 
+  background-color: white;
+  padding: 1rem;
+  border-radius: 0.5rem;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.map-container {
+  display: flex;
+  height: 100%;
+}
+
+.leaflet-div-icon,
+.leaflet-marker-icon {
+  background: transparent !important;
+  border: none !important;
+}
+.card a {
+  color: #3498db;
+  text-decoration: underline;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: block;
+  margin-top: 0.5rem;
+}
+.card.bg-gray-100 {
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+  transform: scale(1.02);
+  box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.2);
+}
+.card-modal {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  display: block;
+}
+
+@media (max-width: 1024px) {
+  #map {
+    height: 300px;
+    width: 100%;
+  }
+  .filtro {
+    top: auto;
+    bottom: 1rem;
+  }
+}
+
+:global(.btn-ver-mas:hover) {
+  background-color: #0d9488;
+}
+
+/* Estilos para los clusters */
+:global(.marker-cluster) {
+  background-color: rgba(20, 184, 166, 0.6);
+  border: 3px solid #fff;
+  border-radius: 50%;
+  color: white;
+  font-weight: bold;
+  text-align: center;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.25);
+}
+
+:global(.marker-cluster div) {
+  background-color: rgba(20, 184, 166, 0.8);
+  border-radius: 50%;
+  width: 100%;
+  height: 100%;
+}

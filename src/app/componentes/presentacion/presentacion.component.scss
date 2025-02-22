@@ -1,0 +1,16 @@
+.parallax-bg {
+    background-image: url("/assets/img/mate-bunkers.jpg");
+    background-size: cover;
+    background-attachment: fixed;
+    background-position: 0 75%;;
+  }
+  .hover-tilt:hover {
+    transform: scale(1.05) rotate(1deg);
+    transition: transform 0.3s ease-in-out;
+  }
+
+  @media (max-width: 1200px) {
+    .parallax-bg {
+      background-position: bottom;
+    }
+  }

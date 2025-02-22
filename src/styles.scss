@@ -1,1 +1,210 @@
-/* You can add global styles to this file, and also import other style files */
+@use 'tailwindcss/base';
+@use 'tailwindcss/components';
+@use 'tailwindcss/utilities';
+
+  .fc-toolbar-title {
+    text-transform: capitalize;
+  }
+  .fc-event-title {
+    white-space: normal;
+    word-wrap: break-word;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .fc-dayGridMonth-button, 
+  .fc-dayGridWeek-button, 
+  .fc-dayGridDay-button,
+  .fc-prev-button,
+  .fc-next-button {
+    color: #fff !important;
+    background-color: #3fc0be !important;
+    border-color: #3fc0be !important;
+  }
+  
+  .fc-prev-button:hover,
+  .fc-next-button:hover,
+  .fc-dayGridMonth-button:hover,
+  .fc-dayGridWeek-button:hover,
+  .fc-dayGridDay-button:hover {
+    background-color: #276d62 !important;
+    color: #fff !important;
+    border-color: #276d62 !important;
+  }
+
+  .fc-today-button {
+    background-color: #facc15 !important;
+    color: white !important;
+    border: none !important;
+  }
+ /*fc-header-toolbar {
+    background-color: #facc15;
+  }*/
+  .fc-today-button:hover {
+    background-color: #FF9800 !important;
+    color: #ffffff !important;
+  }
+  .fc-event {
+    padding: 10px 15px !important;
+  }
+  .fc {
+    font-size: 16px;
+  }
+
+.btn-77 {
+    padding: 0.75rem 1.5rem;
+    border-radius: 0.375rem;
+    width: 100%;
+    font-size: 1rem;
+    border:none;
+    position:relative;
+    height: 40px;
+    cursor:pointer;
+    transition:800ms ease all;
+    outline:none;
+    display: flex;
+  justify-content: center;
+  align-items: center;
+  }
+  .btn-77:before,.btn-77:after{
+    content:'';
+    position:absolute;
+    top:0;
+    right:0;
+    height:2px;
+    width:0;
+    background: #1AAB8A;
+    transition:400ms ease all;
+  }
+  .btn-77:after{
+    right:inherit;
+    top:inherit;
+    left:0;
+    bottom:0;
+  }
+  .btn-77:hover:before,.btn-77:hover:after{
+    width:100%;
+    transition:800ms ease all;
+  }
+
+.btn-25,
+.btn-25 *,
+.btn-25 :after,
+.btn-25 :before,
+.btn-25:after,
+.btn-25:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+.btn-25 {
+  -webkit-tap-highlight-color: transparent;
+  appearance: button;
+  background-image: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: 'Poppins';
+  font-size: 100%;
+  font-weight: 500;
+  line-height: 1.5;
+  margin: 0;
+  mask-image: -webkit-radial-gradient(#000, #fff);
+  padding: 0;
+  text-transform: uppercase;
+}
+.btn-25:disabled {
+  cursor: default;
+}
+.btn-25:-moz-focusring {
+  outline: auto;
+}
+.btn-25 svg {
+  display: block;
+}
+.btn-25 [hidden] {
+  display: none;
+}
+.btn-25 {
+  --background: #0ad3c2;
+  background: none;
+  overflow: hidden;
+  padding: 0.8rem 3rem;
+  position: relative;
+}
+.btn-25 span {
+  display: block;
+  position: relative;
+  transition: transform 0.2s ease;
+}
+.btn-25:after,
+.btn-25:before {
+  --tilt: 20px;
+  background: #fff;
+  -webkit-clip-path: polygon(0 50%, 0 0, 100% 0, 100% 50%, 100% 100%, 0 100%);
+  clip-path: polygon(0 50%, 0 0, 100% 0, 100% 50%, 100% 100%, 0 100%);
+  content: "";
+  display: block;
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: -webkit-clip-path 0.2s ease;
+  transition: clip-path 0.2s ease;
+  transition: clip-path 0.2s ease, -webkit-clip-path 0.2s ease;
+  width: 100%;
+  z-index: -1;
+}
+.btn-25:after {
+  --thickness: 5px;
+  background: var(--background);
+  height: calc(100% - var(--thickness) * 2);
+  left: var(--thickness);
+  top: var(--thickness);
+  width: calc(100% - var(--thickness) * 2);
+}
+.btn-25:hover:after,
+.btn-25:hover:before {
+  -webkit-clip-path: polygon(
+    0 50%,
+    var(--tilt) 0,
+    calc(100% - var(--tilt)) 0,
+    100% 50%,
+    calc(100% - var(--tilt)) 100%,
+    var(--tilt) 100%
+  );
+  clip-path: polygon(
+    0 50%,
+    var(--tilt) 0,
+    calc(100% - var(--tilt)) 0,
+    100% 50%,
+    calc(100% - var(--tilt)) 100%,
+    var(--tilt) 100%
+  );
+}
+
+.bg-pastelIndigo {
+  background-color: #ab47bc; /* color pastel indigo */
+}
+
+.bg-pastelBlue {
+  background-color: #26c6da; /* color pastel blue */
+}
+
+.bg-pastelGreen {
+  background-color: #26a69a; /* color pastel green */
+}
+
+.bg-pastelYellow {
+  background-color: #ffca28; /* color pastel yellow */
+}
+
+.bg-pastelOrange {
+  background-color: #ff7043; /* color pastel orange */
+}
+
+.bg-pastelRed {
+  background-color: #ef5350; /* color pastel red */
+}
+
+.bg-pastelVioleta {
+  background-color: #7d54c4; /* color pastel violet */
+}

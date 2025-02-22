@@ -1,0 +1,161 @@
+<!-- Botón para abrir la barra lateral -->
+<button
+  data-drawer-target="default-sidebar"
+  data-drawer-toggle="default-sidebar"
+  aria-controls="default-sidebar"
+  type="button"
+  class="inline-flex items-center p-2 mt-2 ml-3 text-sm text-teal-500 rounded-lg sm:hidden hover:bg-teal-200 focus:outline-none focus:ring-2 focus:ring-teal-300 transition-all duration-300 ease-in-out"
+>
+  <span class="sr-only">Abrir barra lateral</span>
+  <svg
+    class="w-6 h-6"
+    aria-hidden="true"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <path
+      clip-rule="evenodd"
+      fill-rule="evenodd"
+      d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zm0 10.5a.75.75 0 01.75-.75h7.5a.75.75 0 010 1.5h-7.5a.75.75 0 01-.75-.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10z"
+    ></path>
+  </svg>
+</button>
+<div class="relative h-screen bg-gradient-to-b from-teal-500 via-teal-600 to-teal-700 overflow-hidden">
+  <div class="absolute top-5 right-5 px-6 py-3 -z-50 logo">
+    <a href="/home">
+      <img
+        class="h-16 w-auto"
+        src="assets/img/logo-blanco.png"
+        alt="logo-uruguayos"
+      />
+    </a>
+  </div>
+  <!-- Barra lateral -->
+  <aside
+    id="default-sidebar"
+    class="fixed top-0 left-0 z-40 w-64 h-full transition-transform -translate-x-full sm:translate-x-0 bg-gradient-to-b from-teal-500 to-teal-700 shadow-lg rounded-r-lg sm:block sm:flex-shrink-0 hidden"
+    aria-label="Sidenav"
+  >
+    <div class="overflow-hidden py-5 px-4 h-full">
+      <!-- Foto de usuario y datos ampliados -->
+      <div class="flex items-center mb-6">
+        <img
+          [src]="userImage"
+          alt="Foto de Usuario"
+          class="w-52 h-52 object-cover rounded-full mb-4"
+        />
+      </div>
+      <div class="text-start text-white ml-3">
+        <p class="text-xl font-semibold">
+          {{ user?.nombre || "Nombre de Usuario" }}
+        </p>
+        <p class="text-teal-100 text-sm">{{ user?.roles || "Usuario" }}</p>
+        <p class="text-teal-100 text-sm">
+          {{ user?.email || "email@example.com" }}
+        </p>
+      </div>
+
+      <!-- Opciones del usuario -->
+      <div class="space-y-4 mt-4">
+        <a
+          href="/admin-eventos"
+          class="flex items-center space-x-2 text-white hover:bg-teal-500 hover:text-white p-3 rounded-lg transition-colors duration-300"
+        >
+          <i class="fas fa-calendar-alt w-6 h-6"></i>
+          <span class="text-lg">Eventos</span>
+        </a>
+        <a
+          href="/admin-blog"
+          class="flex items-center space-x-2 text-white hover:bg-teal-500 hover:text-white p-3 rounded-lg transition-colors duration-300"
+        >
+          <i class="fas fa-pencil-alt w-6 h-6"></i>
+          <span class="text-lg">Blog</span>
+        </a>
+        <a
+          href="/admin-negocios"
+          class="flex items-center space-x-2 text-white hover:bg-teal-500 hover:text-white p-3 rounded-lg transition-colors duration-300"
+        >
+          <i class="fas fa-briefcase w-6 h-6"></i>
+          <span class="text-lg">Negocios</span>
+        </a>
+      </div>
+    </div>
+  </aside>
+
+<!-- Contenedor principal con las cards de Eventos, Blog y Negocios -->
+<div
+  class="h-screen flex flex-col sm:flex-row-reverse sm:ml-64 justify-center items-center"
+>
+  <!-- Cards de Eventos, Blog y Negocios -->
+  <div
+    class="grid grid-cols-1 sm:grid-cols-1 lg:grid-cols-3 gap-6 px-4 sm:px-8 mt-8 sm:mt-16 max-w-screen-xl sm:max-w-screen-md w-full"
+  >
+    <!-- Tarjeta de Eventos -->
+    <div
+      class="w-full sm:max-w-sm bg-white rounded-2xl shadow-xl overflow-hidden group relative hover:scale-105 transition-all duration-300"
+    >
+      <div
+        class="w-full h-64 sm:h-48 lg:h-96 bg-teal-500 text-white flex items-center justify-center"
+      >
+        <i class="fas fa-calendar-alt text-5xl sm:text-4xl lg:text-8xl"></i>
+      </div>
+      <div class="absolute inset-0 flex items-start justify-center mt-8 sm:mt-10 lg:mt-12">
+        <!-- Capa de fondo con opacidad -->
+        <div
+          class="absolute inset-0 bg-teal-500 opacity-20 group-hover:opacity-75"
+        ></div>
+        <span
+          class="text-xl sm:text-2xl lg:text-3xl font-semibold text-white z-10 group-hover:opacity-80"
+          >Eventos</span
+        >
+      </div>
+      <a href="/admin-eventos" class="block w-full h-full p-4 absolute inset-0"></a>
+    </div>
+
+    <!-- Tarjeta de Blog -->
+    <div
+      class="w-full sm:max-w-sm bg-white rounded-2xl shadow-xl overflow-hidden group relative hover:scale-105 transition-all duration-300"
+    >
+      <div
+        class="w-full h-64 sm:h-48 lg:h-96 bg-teal-500 text-white flex items-center justify-center"
+      >
+        <i class="fas fa-pencil-alt text-5xl sm:text-4xl lg:text-8xl"></i>
+      </div>
+      <div class="absolute inset-0 flex items-start justify-center mt-8 sm:mt-10 lg:mt-12">
+        <!-- Capa de fondo con opacidad -->
+        <div
+          class="absolute inset-0 bg-teal-500 opacity-20 group-hover:opacity-75"
+        ></div>
+        <span
+          class="text-xl sm:text-2xl lg:text-3xl font-semibold text-white z-10 group-hover:opacity-80"
+          >Blog</span
+        >
+      </div>
+      <a href="/admin-blog" class="block w-full h-full p-4 absolute inset-0"></a>
+    </div>
+
+    <!-- Tarjeta de Negocios -->
+    <div
+      class="w-full sm:max-w-sm bg-white rounded-2xl shadow-xl overflow-hidden group relative hover:scale-105 transition-all duration-300"
+    >
+      <div
+        class="w-full h-64 sm:h-48 lg:h-96 bg-teal-500 text-white flex items-center justify-center"
+      >
+        <i class="fas fa-briefcase text-5xl sm:text-4xl lg:text-8xl"></i>
+      </div>
+      <div class="absolute inset-0 flex items-start justify-center mt-8 sm:mt-10 lg:mt-12">
+        <!-- Capa de fondo con opacidad -->
+        <div
+          class="absolute inset-0 bg-teal-500 opacity-20 group-hover:opacity-75"
+        ></div>
+        <span
+          class="text-xl sm:text-2xl lg:text-3xl font-semibold text-white z-10 group-hover:opacity-80"
+          >Negocios</span
+        >
+      </div>
+      <a href="/admin-negocios" class="block w-full h-full p-4 absolute inset-0"></a>
+    </div>
+  </div>
+</div>
+</div>

@@ -1,0 +1,195 @@
+<div class="space-y-6">
+
+  @if(!editando && !agregando){
+    <div class="flex justify-center mt-6">
+  <button
+    (click)="agregarEvento()"
+    class="btn-77 max-w-xs px-4 py-2 text-white hover:text-teal-600 bg-teal-400 rounded-md hover:bg-white">
+    NUEVO EVENTO
+  </button>
+</div>
+}
+  @if (mostrarFormularioEvento) {
+  <form  [formGroup]="eventoForm" class="space-y-6 mt-8 bg-yellow-100 border-2 border-yellow-300 shadow-lg p-6 rounded-lg transition-colors duration-300" (ngSubmit)="agregarEvento()">
+    <!-- titulo -->
+    <div>
+      <label class="block text-sm font-medium mb-1" for="titulo">Titulo</label>
+      <input
+        type="text"
+        id="titulo"
+        formControlName="titulo"
+        class="w-full border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+        required      
+        />
+    </div>
+
+    <!-- Selector de fechas -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="fecha">Fecha inicio</label>
+        <input
+          type="date"
+          id="fecha"
+          formControlName="fecha"
+          class="w-full border border-yellow-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          required
+          />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="fecha_fin">Fecha fin</label>
+        <input
+          type="date"
+          id="fecha_fin"
+          formControlName="fecha_fin"
+          class="w-full border  border-yellow-300 rounded-md p-2 mt-6 text-black focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          />
+      </div>
+    </div>
+
+    <!-- Time Selector -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <div>
+        <label class="block text-sm font-medium mb-1" for="hora_inicio">Hora de inicio</label>
+        <input
+          type="time"
+          id="hora_inicio"
+          formControlName="hora_inicio"
+          class="w-full border  border-yellow-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          required
+          />
+      </div>
+      <div>
+        <label class="block text-sm font-medium mb-1" for="hora_fin">Hora de finalización</label>
+        <input
+          type="time"
+          id="hora_fin"
+          formControlName="hora_fin"
+          class="w-full border border-yellow-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          />
+      </div>
+    </div>
+
+<div>
+  <label class="block text-sm font-medium mb-1">Identificación</label>
+  <div class="flex space-x-2">
+    <button class="w-6 h-6 rounded-full bg-pastelVioleta" type="button" (click)="setColor('pastelViolet')"></button>
+    <button class="w-6 h-6 rounded-full bg-pastelIndigo" type="button" (click)="setColor('pastelIndigo')"></button>
+    <button class="w-6 h-6 rounded-full bg-pastelBlue" type="button" (click)="setColor('pastelBlue')"></button>
+    <button class="w-6 h-6 rounded-full bg-pastelGreen" type="button" (click)="setColor('pastelGreen')"></button>
+    <button class="w-6 h-6 rounded-full bg-pastelYellow" type="button" (click)="setColor('pastelYellow')"></button>
+    <button class="w-6 h-6 rounded-full bg-pastelOrange" type="button" (click)="setColor('pastelOrange')"></button>
+    <button class="w-6 h-6 rounded-full bg-pastelRed" type="button" (click)="setColor('pastelRed')"></button>
+  </div>
+</div>
+
+    <!-- Description -->
+    <div>
+      <label class="block text-sm font-medium mb-1" for="descripcion">Descripción</label>
+      <textarea
+        id="descripcion"
+        formControlName="descripcion"
+        class="w-full border border-yellow-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-yellow-300"
+        rows="4"
+        required
+        ></textarea>
+    </div>
+    <!-- Entrada -->
+    <div>
+      <label class="block text-sm font-medium mb-1" for="entrada">Entrada</label>
+      <select
+        id="entrada"
+        formControlName="entrada"
+        required
+        class="w-full border border-yellow-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      >
+        <option value="Gratuito">Gratuito</option>
+        <option value="Pago">Pago</option>
+      </select>
+    </div>
+
+      <!-- Costo -->
+       @if (eventoForm.get('entrada')?.value === 'Pago'){
+    <div>
+      <label class="block text-sm font-medium mb-1" for="precio">Precio</label>
+      <input
+        type="number"
+        id="precio"
+        formControlName="precio"
+        class="w-full border border-yellow-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+  }
+
+     <!-- Ubicación -->
+     <div>
+      <label class="block text-sm font-medium mb-1" for="ubicacion">Ubicación</label>
+      <input
+        type="text"
+        id="ubicacion"
+        formControlName="ubicacion"
+        required
+        class="w-full border border-yellow-300 rounded-md p-2 text-black focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+
+     <!-- Imagen -->
+     <div>
+      <label class="block text-sm font-medium mb-1" for="photo">Imagen</label>
+      <input
+        id="photo"
+        type="file"
+        (change)="onFileSelected($event)"
+        class="w-full border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+
+  <button
+    type="submit"
+    class="bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-600 focus:ring-2 focus:ring-teal-500 w-full">
+    Guardar
+  </button>
+  </form>
+}
+
+<div class="space-y-4 mt-8">
+  @if(!editando && !agregando){
+  <h2 class="text-2xl font-semibold text-center">Lista de Eventos</h2>
+  @if(eventos && eventos.length > 0) {
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+  >
+    @for(evento of eventos; track evento.id_evento) {
+    <div class="card" [class]="evento.color">
+      <h3 class="font-semibold text-lg">{{ evento.titulo }}</h3>
+      <p class="text-sm text-gray-400">{{ evento.descripcion }}</p>
+      <p class="text-sm text-gray-400">{{ evento.fecha }}</p>
+      <p class="text-sm text-gray-400">{{ evento.hora_inicio }}</p>
+      <p class="text-sm text-gray-400">{{ evento.entrada }}</p>
+      <p class="text-sm text-gray-400">{{ evento.ubicacion }}</p>
+
+      <div class="mt-4 flex gap-4">
+        <button
+          (click)="editarEvento(evento)"
+          class="btn-77 text-white hover:text-teal-600 bg-teal-400 rounded-md hover:bg-white"
+        >
+          EDITAR
+        </button>
+        <button
+          (click)="eliminarEvento(evento)"
+          class="btn-77 text-white hover:text-teal-600  bg-black hover:bg-white rounded-md"
+        >
+          ELIMINAR
+        </button>
+      </div>
+    </div>
+    }
+  </div>
+  } @else {
+  <div class="text-center text-gray-500">No hay eventos disponibles.</div>
+  }
+}
+</div>
+</div>
+
+  
+  

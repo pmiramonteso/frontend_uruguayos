@@ -1,0 +1,23 @@
+@if(blog){
+  <section class="relative">
+    <div class="container">
+      <div class="flex flex-col items-center">
+        <h2 class="text-4xl font-bold mb-4 text-teal-400 font-poppins text-center px-4">
+          {{ blog.titulo }}
+        </h2>
+        <p class="text-lg mb-4 text-yellow-400 font-poppins">Categoría: {{ blog.categoria || 'Sin categoría' }}</p>
+        <img [src]="blog.photo" alt="Imagen de {{ blog.titulo }}" class="w-full h-64 object-contain mb-6" />
+        <div class="text-gray-700 mx-4 md:mx-16 font-poppins mb-6" [innerHTML]="blog.contenido"></div>
+      </div>
+    </div>
+  </section>
+  
+  <div class="flex justify-center mb-10">
+    <a [routerLink]="['/blog']" class="text-white bg-yellow-400 hover:bg-yellow-600 font-semibold py-2 px-4 rounded shadow font-poppins">
+      Volver
+    </a>
+  </div>
+}
+
+<app-footer></app-footer>
+

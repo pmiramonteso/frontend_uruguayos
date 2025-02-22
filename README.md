@@ -1,59 +1,73 @@
-# ProjUruguayos
+# <img src="https://upload.wikimedia.org/wikipedia/commons/f/fe/Flag_of_Uruguay.svg" alt="Bandera de Uruguay" width="50"> Uruguayos en España
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.1.7.
+📄 **Descripción**  
+"Uruguayos en España" es una plataforma diseñada para fortalecer los vínculos culturales de uruguayos en España. Este proyecto ofrece un espacio donde los usuarios pueden explorar eventos, negocios y un blog con noticias y contenido relacionado. Además, incluye un panel de administración para gestionar los recursos del sitio.
 
-## Development server
+✨ **Características**  
+- **Roles de Usuario y Administrador**: Implementación de roles con autenticación mediante tokens JWT.  
+- **Gestión de Recursos**: Panel administrativo para agregar, editar o eliminar eventos, negocios y publicaciones del blog.  
+- **Calendario Interactivo**: Visualización de eventos mediante FullCalendar.  
+- **Mapa Interactivo**: Negocios uruguayos en España ubicados en un mapa creado con Leaflet.  
+- **Blog de Noticias**: Espacio para difundir contenido variado sobre los vínculos culturales entre ambos países.  
+- **Base de Datos MySQL**: Gestión de datos eficiente y robusta utilizando MySQL.  
 
-To start a local development server, run:
+☁️ **Interacción con la API**  
+El backend del proyecto está desarrollado con Node.js y Express, permitiendo manejar las peticiones y la comunicación con la base de datos MySQL. 
 
-```bash
-ng serve
-```
+💻 **Tecnologías Utilizadas**  
+- **Frontend**:  
+  - Angular 18  
+  - Tailwind CSS  
+  - SCSS  
+  - FullCalendar  
+  - Leaflet  
 
-Once the server is running, open your browser and navigate to `http://localhost:4200/`. The application will automatically reload whenever you modify any of the source files.
+- **Backend**:  
+  - Node.js  
+  - Express.js  
+  - MySQL  
+  - JWT para autenticación  
+  - Nodemon para el desarrollo  
 
-## Code scaffolding
+📋 **Requisitos**  
+1. **Node.js** y **npm** instalados en tu sistema. Puedes descargarlos desde [nodejs.org](https://nodejs.org/).  
+2. **Angular CLI** instalado globalmente:  
+   ```bash
+   npm install -g @angular/cli
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+🛠️ **Instalación**
 
-```bash
-ng generate component component-name
-```
+Clona este repositorio:
+git clone https://github.com/pmiramonteso/proj_uruguayos.git
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+Ingresa al directorio del proyecto:
+cd proj_uruguayos
 
-```bash
-ng generate --help
-```
+Instala las dependencias del backend y frontend:
+npm install
+cd backend
+npm install
 
-## Building
+Configura el archivo .env con los datos de tu base de datos MySQL:
+Tienes un .env.ejemplo que puedes configurar como .env con tus datos
 
-To build the project run:
+Para generar un JWT SECRET, desde la terminal, puedes ejecutar:
+openssl rand -hex 32
 
-```bash
-ng build
-```
+Copialo en el campo correspondiente y ejecuta MySQL
 
-This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
+🖥️ **Ejecución**
 
-## Running unit tests
+Levanta el servidor del backend:
+cd backend
+npm run dev
 
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Levanta la aplicación Angular:
+cd proj_uruguayos
+ng serve -o
 
-```bash
-ng test
-```
+🤝 **Contribuciones**
+Si deseas colaborar en este proyecto o informar sobre problemas, crea un "issue" o envía un "pull request".
 
-## Running end-to-end tests
-
-For end-to-end (e2e) testing, run:
-
-```bash
-ng e2e
-```
-
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
-
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+📧 **Contacto**
+Paola Miramontes – pmiramonteso@gmail.com

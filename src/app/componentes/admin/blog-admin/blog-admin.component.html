@@ -1,0 +1,117 @@
+<div class="space-y-6">
+  
+  @if(!editando && !agregando){
+    <div class="flex justify-center mt-6">
+  <button
+    (click)="agregarBlog()"
+    class="btn-77 max-w-xs px-4 py-2 text-white hover:text-teal-600 bg-teal-400 rounded-md hover:bg-white"
+  >
+    NUEVO BLOG
+  </button>
+</div>
+}
+    @if (mostrarFormularioBlog) {
+    <form [formGroup]="blogForm" (ngSubmit)="agregarBlog()" class="mx-auto p-6 max-w-3xl bg-yellow-100 border-2 border-yellow-300 shadow-lg rounded-lg transition-colors duration-300">
+      
+      <!-- Título -->
+      <div>
+        <label class="block text-sm font-medium mb-1" for="titulo">Título</label>
+        <input
+          id="titulo"
+          type="text"
+          formControlName="titulo"
+          class="w-full border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          required
+        />
+      </div>
+  
+      <!-- Contenido -->
+      <div>
+         <editor apiKey="qobixfl8d269htsdhbgkwr5cglvx91ltdouomicefl5sxc3x"
+          id="contenido"
+          formControlName="contenido"
+          class="w-full my-5 border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+        >
+        </editor>
+       
+      </div>
+  
+      <!-- Categoría -->
+      <div>
+        <label class="block text-sm font-medium mb-1" for="categoria">Categoría</label>
+        <input
+          id="categoria"
+          type="text"
+          formControlName="categoria"
+          class="w-full border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          required
+        />
+      </div>
+
+      <!-- Imagen -->
+      <div>
+        <label class="block text-sm font-medium mb-1" for="photo">Imagen</label>
+        <input
+          id="photo"
+          type="file"
+          (change)="onFileSelected($event)"
+          class="w-full border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+        />
+      </div>
+  
+      <!-- Estado -->
+      <div>
+        <label class="block text-sm font-medium" for="status">Estado</label>
+        <select
+          id="status"
+          formControlName="status"
+          class="w-full border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          required
+        >
+          <option [value]="true">Activo</option>
+          <option [value]="false">Inactivo</option>
+        </select>
+      </div>
+  
+      <!-- Acciones -->
+      <button
+    type="submit"
+    class="bg-teal-400 text-white px-4 py-2 mt-5 rounded-md hover:bg-teal-600 focus:ring-2 focus:ring-teal-500 w-full">
+    Guardar
+  </button>
+    </form>
+  }
+
+    <div class="space-y-4 mt-8">
+      @if (!editando && !agregando) {
+        <h2 class="text-2xl font-semibold text-center">Lista de Blogs</h2>
+        @if (blogs && blogs.length > 0) {
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+            @for (blog of blogs; track blog.id_blog) {
+              <div class="card">
+                <h3 class="font-semibold text-lg">{{ blog.titulo }}</h3>
+                <p class="text-sm text-gray-400" [innerHTML]="blog.contenido"></p>
+                <div class="mt-4 flex gap-4">
+                  <button
+                    (click)="editarBlog(blog)"
+                    class="btn-77 text-white hover:text-teal-600 bg-teal-400 rounded-md hover:bg-white"
+                  >
+                    EDITAR
+                  </button>
+                  <button
+                    (click)="eliminarBlog(blog)"
+                    class="btn-77 text-white hover:text-teal-600  bg-black hover:bg-white rounded-md"
+                  >
+                    ELIMINAR
+                  </button>
+                </div>
+              </div>
+            }
+          </div>
+          } @else {
+          <div class="text-center text-gray-500">No hay blogs disponibles.</div>
+        }
+      }
+    </div>
+  
+  

@@ -1,0 +1,197 @@
+full-calendar {
+  display: block;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.capitalize-first::first-letter {
+  text-transform: uppercase;
+}
+
+:host ::ng-deep .fc-event {
+  white-space: normal !important;
+  font-size: 16px;
+}
+
+:host {
+  display: block;
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
+.calendar-container {
+  margin: 0 auto;
+  max-width: 100%;
+  
+  ::ng-deep {
+    .fc-header-toolbar,
+    .fc-footer-toolbar {
+      display: none !important;
+    }
+    .fc {
+      max-width: 100%;
+      
+      .fc-view-harness {
+        height: auto !important;
+        min-height: 500px;
+      }
+      
+      @media (max-width: 768px) {
+        .fc-daygrid-day-frame {
+          min-height: 50px;
+        }
+        
+        .fc-daygrid-day-events {
+          margin: 0;
+        }
+        
+        .fc-event {
+          margin: 1px 0;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  // Estilos generales del calendario
+  .fc {
+    .fc-daygrid-day-frame {
+      min-height: 100px;
+    }
+
+    // Estilos para eventos
+    .custom-calendar-event {
+      margin: 1px 0;
+      border: none;
+      border-radius: 4px;
+
+      .event-content {
+        padding: 2px 4px;
+        
+        .event-title {
+          font-size: 14px;
+          white-space: nowrap;
+          overflow: hidden;
+          text-overflow: ellipsis;
+        }
+      }
+
+      // Estilos específicos para móvil
+      @media (max-width: 768px) {
+        height: 8px !important;
+        margin: 1px 0;
+
+        .event-content {
+          display: none; // Ocultar el contenido en móvil
+        }
+
+        &:hover {
+          height: auto !important;
+          
+          .event-content {
+            display: block; // Mostrar contenido al hacer hover
+            padding: 2px 4px;
+            
+            .event-title {
+              font-size: 12px;
+              white-space: normal;
+              line-height: 1.2;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  // Mejorar la visualización de los días
+  .fc-daygrid-day {
+    @media (max-width: 768px) {
+      .fc-daygrid-day-frame {
+        min-height: 60px;
+      }
+    }
+  }
+}
+
+.modal-overlay {
+  @media (max-width: 768px) {
+    margin: 10px;
+    max-height: 90vh;
+    overflow-y: auto;
+  }
+}
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 10px;
+  padding: 20px;
+  width: 90%;
+  max-width: 600px;
+  box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.3);
+  position: relative;
+  overflow: hidden;
+}
+
+.card-modal {
+  font-family: Arial, sans-serif;
+  color: #333;
+}
+
+.card-modal h2 {
+  margin: 0 0 10px 0;
+}
+
+.card-modal p {
+  margin: 10px 0;
+}
+
+button {
+  display: block;
+  margin: 0 auto;
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: #319795;
+}
+
+.bg-pastelViolet {
+  background-color: #B39DDB !important;
+}
+
+.bg-pastelIndigo {
+  background-color: #7986CB !important;
+}
+
+.bg-pastelBlue {
+  background-color: #64B5F6 !important;
+}
+
+.bg-pastelGreen {
+  background-color: #81C784 !important;
+}
+
+.bg-pastelYellow {
+  background-color: #FFEB3B !important;
+}
+
+.bg-pastelOrange {
+  background-color: #FFB74D !important;
+}
+
+.bg-pastelRed {
+  background-color: #FF8A80 !important;
+}

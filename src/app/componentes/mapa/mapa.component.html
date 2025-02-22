@@ -1,0 +1,122 @@
+<section class="relative bg-gradient-to-r from-teal-500 to-blue-400 text-white p-8 rounded-lg shadow-2xl">
+  <!-- Contenedor principal con flex -->
+  <div class="flex flex-col md:flex-row items-center lg:space-x-8 justify-center">
+    <!-- Contenido de texto -->
+    <div class="relative z-10 md:w-2/3 lg:w-1/2 text-center">
+      <h2 class="text-4xl font-extrabold leading-tight mb-4">
+        ¿Dónde encuentro un chivito?
+      </h2>
+      <p class="text-lg mb-6">Organizamos los restaurantes, las panaderías y las tiendas donde puedes encontrar productos y comidas uruguayas.</p>
+
+      <!-- Botón para ver más eventos 
+      <a href="#eventos" class="inline-block bg-yellow-400 text-white font-semibold text-lg py-2 px-6 rounded-full shadow-md hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105">
+        
+      </a>-->
+    </div>
+
+    <!-- Imagen 
+    <div class="relative md:w-1/3 lg:w-1/2 mt-8 md:mt-0">
+      <img class="rounded-lg shadow-md lg:max-h-96 object-cover" src="assets/img/mate-primo.jpeg" alt="Eventos Uruguayos" />
+    </div>-->
+  </div>
+</section>
+
+<div class="text-black flex items-center justify-center my-20">
+    <div class="container mx-auto p-6">
+      <!-- Contenedor Principal -->
+      <div class="flex flex-col gap-6 lg:flex-row shadow-lg rounded-lg overflow-hidden h-full">
+        <!-- Mapa -->
+        <div id="map" class="h-[auto] lg:h-[600px] lg:w-3/4 w-full flex rounded-t-lg lg:rounded-l-lg lg:rounded-tr-none items-center justify-center relative">
+          <p class="text-gray-300">Mapa Interactivo Aquí</p>
+          <!-- Filtro de Categorías -->
+          <div class="filtro absolute top-4 right-4 bg-white p-4 rounded-lg shadow-lg z-10 max-w-xs">
+            <div class="flex flex-col gap-2">
+              @for (categoria of categorias; track categoria) {
+                <label class="flex items-center gap-2">
+                  <input
+                    type="checkbox"
+                    (change)="toggleCategoriaSeleccionada(categoria, $event)"
+                    [checked]="categoriasSeleccionadas.includes(categoria)"
+                    class="cursor-pointer"
+                  />
+                  <span>{{ categoria }}</span>
+                </label>
+              }
+            </div>
+          </div>
+        </div>
+
+        <!-- Cards de Negocios -->
+        <div class="card p-6 flex flex-col gap-4 border-t border-gray-100 lg:border-t-0 lg:border-l lg:rounded-r-lg flex-[1] lg:h-[600px] overflow-y-auto flex-grow">
+          <!-- Título -->
+          <h2 class="text-2xl font-semibold text-center mb-4">Negocios</h2>
+
+          @if (!negocios || negocios.length === 0 ){
+            <p>No hay negocios disponibles</p>
+          }
+          <!-- Tarjetas -->
+          @for (negocio of negocios; track negocio.id_negocio) {
+          <div
+          id="card-{{ negocio.id_negocio }}"
+            class="border border-white rounded-lg p-4 shadow-md hover:shadow-lg transition-shadow "
+            [class.bg-gray-100]="negocio.seleccionado"
+            (click)="seleccionarNegocio(negocio); abrirModal(negocio)">
+            <h3 class="text-lg font-bold text-teal-400">{{ negocio.nombre }}</h3>
+            <p class="text-sm text-gray-400 mt-1">Dirección: {{ negocio.direccion }}</p>
+            <p class="text-sm text-gray-500 mt-1">
+              Distancia: {{ negocio.distancia?.toFixed(2) }} km
+            </p>
+          </div>
+          }
+        </div>
+      </div>
+    </div>
+
+    @if(mostrarModal) {
+    <div class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+  <div class="bg-white rounded-lg shadow-lg w-11/12 max-w-md p-6">
+    <!-- Título -->
+    <h2 class="text-xl font-semibold mb-4">{{ negocioSeleccionado?.nombre }}</h2>
+
+    <!-- Contenido del modal -->
+    <div class="card-modal">
+      <p class="text-gray-600 mb-2">{{ negocioSeleccionado?.descripcion }}</p>
+      <p class="text-sm text-gray-500 mb-3">
+        <strong>Dirección:</strong> {{ negocioSeleccionado?.direccion }}
+      </p>
+      <!-- Redes Sociales -->
+      @if(negocioSeleccionado?.tipoRedSocial === 'instagram') {
+        <i class="fab fa-instagram text-pink-500 text-xl"></i>
+      }
+      @if(negocioSeleccionado?.tipoRedSocial === 'twitter') {
+        <i class="fab fa-twitter text-blue-400 text-xl"></i>
+      }
+      @if(negocioSeleccionado?.tipoRedSocial === 'facebook') {
+        <i class="fab fa-facebook text-blue-600 text-xl"></i>
+      }
+      @if(negocioSeleccionado?.tipoRedSocial === 'youtube') {
+        <i class="fab fa-youtube text-red-500 text-xl"></i>
+      }
+      @if(negocioSeleccionado?.tipoRedSocial === 'pagina_web') {
+        <i class="fas fa-globe text-green-500 text-xl"></i>
+      }
+
+      <a [href]="negocioSeleccionado?.urlRedSocial" target="_blank" class="text-blue-400 underline">
+        {{ negocioSeleccionado?.urlRedSocial }}
+      </a>
+    </div>
+
+    <!-- Botón de cierre -->
+    <button
+      (click)="cerrarModal()"
+      class="mt-6 w-full bg-teal-500 text-white py-2 px-4 rounded-lg hover:bg-teal-600 transition"
+    >
+      Cerrar
+    </button>
+  </div>
+</div>
+}
+</div>
+<app-footer></app-footer>
+
+

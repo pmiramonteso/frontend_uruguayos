@@ -1,0 +1,56 @@
+.charts-container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+
+  canvas {
+    max-width: 70%;
+    width: 70%;
+    margin: 0 auto;
+  }
+}
+
+.contenedor-grafico {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
+  gap: 20px;
+
+  #contenedorGraficoTorta {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    max-width: 1000px;
+
+    canvas {
+      max-width: 100%;
+      height: auto;
+    }
+  }
+
+  .botones-anios {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+
+    .btn-anio {
+
+      color: #fff;
+      padding: 10px 15px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+
+      &:hover {
+        background-color: #0056b3;
+      }
+
+      &:active {
+        background-color: #003f8a;
+      }
+    }
+  }
+}

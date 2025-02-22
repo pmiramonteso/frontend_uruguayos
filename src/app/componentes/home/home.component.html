@@ -1,0 +1,163 @@
+<div class="relative h-screen bg-cover bg-center mt-0" style="background-image: url('assets/img/mate-pato.JPG');">
+  <div class="absolute inset-0 flex flex-col mt-48 justify-start items-center text-center text-white px-4">
+      <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-lg">COMPARTIR</h1>
+      <p class="text-lg md:text-xl mt-4 drop-shadow-md">
+        Celebrando nuestra cultura, conectando a nuestra comunidad
+      </p>
+      <button (click)="openModal('registro')" class="mt-6 bg-teal-400 hover:bg-teal-600 text-white font-semibold py-3 px-6 rounded shadow">
+        UNIRSE A LA COMUNIDAD
+      </button>
+      @if(showModal === 'registro') {
+        <app-registro></app-registro>
+      }
+    </div>
+  </div>
+
+  <div class="relative h-64 bg-teal-400 py-5 flex items-center justify-center">
+    <div class="max-w-full mx-auto px-6 sm:px-8 text-center">
+      <div class="text-3xl xs:text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-6xl font-semibold text-white font-poppins italic leading-relaxed">
+        "Somos padres, hijos, nietos y bisnietos de inmigrantes."
+      </div>
+      <div class="text-md xs:text-lg sm:text-lg xl:text-xl text-gray-600 font-medium mt-4 sm:mt-6 font-poppins italic">
+        - Jorge Drexler
+      </div>
+    </div>
+  </div>
+
+  <div class="max-w-full flex justify-between text-center">
+  <div class="mx-auto py-20">
+    <div class="text-center">
+      <h2 class="text-4xl font-bold text-teal-400 mb-10 font-poppins">¡BIENVENIDOS A LA COMUNIDAD!</h2>
+      <p class="text-lg text-gray-600 max-w-3xl mx-auto mb-10 font-poppins">Descubre todo lo que tenemos para ti: un espacio para conectarte con otros uruguayos en España, explorar negocios locales, participar de eventos y mantenerte al tanto de noticias y novedades.</p>
+    </div>
+  
+    <div class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-3 gap-6 justify-center">
+      <!-- Eventos -->
+      <div class="cursor-pointer group relative flex flex-col my-6 rounded-3xl max-w-xs mx-auto  transition-shadow duration-300">
+        <div class="relative overflow-hidden text-white rounded-3xl flex-shrink-0">
+          <img class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-110 object-cover w-full h-full" 
+               src="assets/img/carnaval.jpg" alt="carnaval" />
+        </div>
+        <div class="p-4 flex flex-col justify-between flex-1">
+          <h6 class="mb-2 text-yellow-400 text-xl font-semibold">
+            Eventos Uruguayos
+          </h6>
+          <i class="fas fa-calendar-alt text-yellow-400"></i>
+          <p class="text-slate-600 leading-normal font-light">
+            Infórmate sobre los próximos eventos y celebraciones de la comunidad uruguaya en España. ¡No te los pierdas!
+          </p>
+        </div>
+        <div class="px-4 pb-4 pt-0 mt-2">
+          <a routerLink="/calendario"
+           class="rounded-md bg-teal-400 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-teal-700 hover:bg-teal-600 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+            Eventos
+          </a>
+        </div>
+      </div>  
+
+ <!-- Estadísticas -->
+ <div class="cursor-pointer group relative flex flex-col my-6 rounded-3xl max-w-xs mx-auto transition-shadow duration-300">
+  <div class="relative overflow-hidden text-white rounded-3xl flex items-center flex-shrink-0">
+    <img class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-110 object-cover w-full h-full" 
+         src="assets/img/uru-esp.jpg" alt="uru-esp">
+  </div>
+  <div class="p-4 flex flex-col justify-between flex-1">
+    <h6 class="mb-2 text-yellow-400 text-xl font-semibold">
+      Estadísticas de la Comunidad
+    </h6>
+    <i class="fas fa-chart-pie text-yellow-400"></i>
+    <p class="text-slate-600 leading-normal font-light">
+      Consulta datos sobre la población uruguaya en España, desde la distribución por nacionalidad hasta las principales ciudades de residencia.
+    </p>
+  </div>
+  <div class="px-4 pb-4 pt-0 mt-2">
+    <a routerLink="/graficos"
+     class="rounded-md bg-teal-400 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-teal-700 hover:bg-teal-600 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+     Estadísticas
+    </a>
+  </div>
+</div> 
+
+ <!-- Negocios -->
+      <div class="cursor-pointer group relative flex flex-col my-6 rounded-3xl max-w-xs mx-auto transition-shadow duration-300">
+        <div class="relative overflow-hidden text-white rounded-3xl flex-shrink-0">
+          <img class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-110 object-cover w-full h-full" 
+               src="assets/img/asado.jpg" alt="asado-uruguayo" />
+        </div>
+        <div class="p-4 flex flex-col justify-between flex-1">
+          <h6 class="mb-2 text-yellow-400 text-xl font-semibold">
+            Negocios Uruguayos
+          </h6>
+          <i class="fas fa-store text-yellow-400"></i>
+          <p class="text-slate-600 leading-normal font-light">
+            Descubre negocios, panaderías, restaurantes y tiendas uruguayas en España. ¡Apoya a la comunidad local
+          </p>
+        </div>
+        <div class="px-4 pt-0 mt-2">
+          <a routerLink="/mapa"
+           class="rounded-md bg-teal-400 py-2 px-4 border border-transparent text-center text-sm text-white transition-all shadow-md hover:shadow-lg focus:bg-slate-700 focus:shadow-none active:bg-teal-700 hover:bg-teal-600 active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" type="button">
+           Negocios
+          </a>
+        </div>
+      </div> 
+    </div>
+  </div>
+</div>
+
+
+<div class="container mx-auto py-8 px-20 max-w-full">
+  <h2 class="text-3xl font-bold mb-6 text-teal-400 text- center">Ultimos artículos</h2>
+  <div class="grid grid-cols-1 md:grid-cols-12 gap-6 justify-center items-center">
+  
+     @if (blogs.length > 0) {
+    <div class="md:col-span-5 border-4 border-teal-400 rounded-lg p-4 flex flex-col h-full items-center">
+      <a [routerLink]="['/blog', blogs[0].id_blog]" class="flex flex-col">
+      <img
+        [src]="blogs[0].photo || 'assets/img/default-blog.jpg'"
+        alt="Blog Principal"
+        class="rounded-lg mb-4 max-h-64 object-contain w-full"
+      />
+      <p class="text-sm font-medium text-teal-400">{{ blogs[0].categoria || 'General' }}</p>
+      <h3 class="text-xl text-teal-600 font-bold mb-2">
+        {{ blogs[0].titulo }}
+      </h3>
+      <p class="text-sm text-gray-500">{{ blogs[0].autor || 'Autor desconocido' }} • </p> <!-- {{ blogs[0]?.fecha | date:'shortDate' }} -->
+    </a>
+    </div>
+
+   
+     @if (blogs.length > 1) {
+      <div class="md:col-span-7 flex flex-col gap-6 h-full">
+      @for(blog of blogs.slice(1,3); track blog.id_blog){
+    
+        <a [routerLink]="['/blog', blog.id_blog]" class="border-4 border-yellow-400 rounded-lg p-4 flex">
+        <img
+        [src]="blog?.photo || 'assets/img/default-blog.jpg'"
+        alt="{{ blog?.titulo }}"
+          class="rounded-lg mr-4 max-h-48 object-contain w-1/3"
+        />
+        <div class="w-2/3">
+          <p class="text-sm font-medium text-yellow-400">{{ blog?.categoria || 'General' }}</p>
+          <h3 class="text-lg text-yellow-600 font-bold mb-2">
+            {{ blog?.titulo }}
+          </h3>
+          <p class="text-sm text-gray-500">{{ blog?.autor || 'Autor desconocido' }} • </p>
+        </div>
+      </a>
+    }
+    </div>
+  
+  }
+  }
+  </div>
+
+
+  <div class="mt-6 flex justify-end">
+    <a routerLink="/blog"
+      class="text-sm text-white px-4 py-2 bg-teal-400 hover:bg-teal-600 rounded-full font-medium">
+      Mostrar todos
+  </a>
+  </div>
+</div>
+
+  <app-footer></app-footer>

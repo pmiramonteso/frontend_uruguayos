@@ -1,0 +1,45 @@
+<section class="relative bg-gradient-to-r from-teal-500 to-blue-400 text-white p-10 rounded-lg shadow-2xl">
+  <!-- Contenedor principal con flex -->
+  <div class="flex flex-col md:flex-row items-center lg:space-x-8 justify-center">
+    <!-- Contenido de texto -->
+    <div class="relative z-10 md:w-2/3 lg:w-1/2 text-center">
+      <h2 class="text-4xl font-extrabold leading-tight mb-4">
+        Noticias y curiosidades de Uruguay y España.
+      </h2>
+      <p class="text-lg mb-6">Investigamos sobre la relación que hay entre los países y sus culturas. Estamos al día de que pasa con nuestra comunidad.</p>
+
+      <!-- Botón para ver más eventos
+      <a href="#eventos" class="inline-block bg-yellow-400 text-white font-semibold text-lg py-2 px-6 rounded-full shadow-md hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105">
+        Regístrate
+      </a> -->
+    </div>
+  </div>
+</section>
+
+<div class="flex justify-center items-center">
+  <div class="grid sm:grid-cols-1 md:grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-4 gap-8 lg:gap-6 xl:gap-4 my-20 w-full max-w-screen-xl px-4 justify-center">
+    <!-- Iteración de los blogs -->
+    @for (blog of blogs; track blog.id_blog) {
+      <div class="flex flex-col bg-white shadow-lg rounded-lg overflow-hidden w-full">
+        <img 
+          [src]="blog.photo || 'assets/img/default-blog.jpg'" 
+          alt="Imagen de {{ blog.titulo }}" 
+          class="w-full h-48 object-contain"
+        />
+        <div class="p-6 flex flex-col justify-between h-full">
+          <h3 class="text-2xl font-semibold text-gray-800 mb-2 truncate">{{ blog.titulo }}</h3>
+          <p class="text-teal-500 text-sm mb-4">{{ blog.categoria || 'Sin categoría' }}</p>
+          <p class="text-gray-600 mb-4 flex-grow truncate" [innerHTML]="blog.contenido"></p>
+          <a [routerLink]="['/blog', blog.id_blog]" class="hover:text-yellow-600 text-yellow-400 font-semibold py-2 px-4 rounded-lg transition duration-300 ml-auto">
+            LEER MÁS
+          </a>
+        </div>
+      </div>
+    }
+  </div>
+</div>
+
+
+<app-footer></app-footer>
+
+  

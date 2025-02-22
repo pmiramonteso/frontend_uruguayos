@@ -1,0 +1,40 @@
+::ng-deep .ql-picker-label::after {
+    display: none !important;
+  }
+  
+  ::ng-deep .ql-picker {
+    display: none !important;
+  }
+
+  ::ng-deep .ql-container {
+    overflow: hidden !important;
+}
+
+form {
+  padding: 1.5rem;
+  border-radius: 0.5rem;
+  max-width: 40rem;
+  margin: 0 auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: black;
+  transition: background-color 0.3s, color 0.3s;
+}
+
+input, select {
+  background-color: white;
+  color: black;
+  padding: 0.75rem;
+  border-radius: 0.375rem;
+  width: 100%;
+  margin-top: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.card {
+  background-color: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin: 10px 0;
+  transition: background-color 0.3s, box-shadow 0.3s;
+}

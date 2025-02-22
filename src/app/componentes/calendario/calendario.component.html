@@ -1,0 +1,146 @@
+<section class="relative bg-gradient-to-r from-teal-500 to-blue-400 text-white p-8 rounded-lg shadow-2xl mb-2">
+  <!-- Contenedor principal con flex -->
+  <div class="flex flex-col md:flex-row items-center lg:space-x-8 justify-center">
+    <!-- Contenido de texto -->
+    <div class="relative z-10 md:w-2/3 lg:w-1/2 text-center">
+      <h2 class="text-4xl font-bold leading-tight mb-4">
+        <span class="block text-2xl">¡No te pierdas los próximos eventos de Uruguayos!</span>
+        Conoce lo que está sucediendo.
+      </h2>
+      <p class="text-lg mb-4">Únete a nosotros para no perdertelos.</p>
+
+      <!-- Botón para ver más eventos 
+      <a href="#eventos" class="inline-block bg-yellow-400 text-white font-semibold text-lg py-2 px-6 rounded-full shadow-md hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105">
+        Ver más eventos
+      </a>-->
+    </div>
+
+  </div>
+</section>  
+  
+<div class="container mx-auto px-4 lg:px-12 max-w-7xl">
+  <!-- Encabezado personalizado -->
+  <div class="calendario-header mb-4">
+    <h2 class="text-3xl font-bold text-center mb-4" id="calendario-titulo"></h2>
+
+    <div class="flex flex-wrap justify-between items-center mb-4">
+      <!-- Botones de navegación (izquierda) -->
+      <div class="flex items-center space-x-2">
+        <div class="flex">
+        <button class="bg-teal-500 text-white py-1 px-3 rounded-l hover:bg-teal-600" id="btn-prev">
+          <span class="sr-only">Anterior</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M12.707 5.293a1 1 0 010 1.414L9.414 10l3.293 3.293a1 1 0 01-1.414 1.414l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 0z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <button class="bg-teal-500 text-white py-1 px-3 rounded-r hover:bg-teal-600 mr-2" id="btn-next">
+          <span class="sr-only">Siguiente</span>
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd" d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z" clip-rule="evenodd" />
+          </svg>
+        </button>
+      </div>
+        <button class="bg-yellow-400 text-white py-1 px-3 rounded hover:bg-yellow-500" id="btn-today">
+          Hoy
+        </button>
+      </div>
+      
+      <!-- Selectores de vista (derecha) -->
+      <div class="bg-teal-500 text-white rounded-lg inline-flex">
+        <button class="py-1 px-3 rounded-l hover:bg-teal-700 view-btn active" id="btn-month">Mes</button>
+        <button class="py-1 px-3 hover:bg-teal-700 view-btn" id="btn-week">Semana</button>
+        <button class="py-1 px-3 rounded-r hover:bg-teal-700 view-btn" id="btn-day">Día</button>
+      </div>
+    </div>
+
+    <!-- Calendario -->
+    <div class="calendar-container">
+      <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+    </div>
+</div>
+
+<section class="mt-12 mb-8">
+  <h2 class="text-3xl font-bold text-gray-800 mb-6 text-center">Próximos eventos</h2>
+  
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    @for (evento of proximosEventos.slice(0, eventosVisibles); track evento.titulo) {
+      <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow duration-300 cursor-pointer"
+           (click)="seleccionarEvento(evento)">
+        <div class="relative">
+          <img [src]="evento.photo" alt="Imagen del evento" class="w-full h-48 object-cover"/>
+          <div class="capitalize-first absolute top-2 left-2 bg-teal-400 text-white text-sm font-bold px-3 py-1 rounded">
+            {{ evento.fecha | date: 'MMM d' }}
+          </div>
+        </div>
+        <div class="p-4">
+          <h3 class="font-bold text-lg text-teal-600 mb-2">{{ evento.titulo }}</h3>
+          <p class="text-gray-600 text-sm mb-2 line-clamp-2">{{ evento.descripcion }}</p>
+          <div class="flex items-center text-gray-500 text-sm">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+            <span>{{ evento.ubicacion }}</span>
+          </div>
+        </div>
+      </div>
+    }
+  </div>
+  
+  @if(hayMasEventos) {
+    <div class="text-center mt-8">
+      <button (click)="verMasEventos()" 
+        class="inline-block bg-yellow-400 text-white font-semibold text-lg py-2 px-6 rounded-full shadow-md hover:bg-yellow-500 transition duration-300 ease-in-out transform hover:scale-105">
+        Ver más eventos
+      </button>
+    </div>
+  }
+</section>
+
+  @if(eventoSeleccionado) {
+  <div class="modal-overlay bg-white shadow-lg rounded-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+  >
+  <div class="modal-content max-w-4xl mx-auto p-4">
+    <div class="card-modal">
+    <div class="relative h-auto max-h-72">
+        <img [src]="eventoSeleccionado.photo" alt="Imagen del evento" class="w-full max-h-72 object-contain"/>
+      <div class="capitalize-first absolute top-2 left-2 bg-teal-400 text-white text-sm font-bold px-3 py-1 rounded">
+        {{ eventoSeleccionado.fecha | date: 'MMM d' }}
+      </div>
+    </div>
+
+    <div class="p-4">
+      <h2 class="text-xl font-bold text-teal-400 mb-4">{{ eventoSeleccionado.titulo }}</h2>
+      <p class="text-gray-600 text-sm mb-2">{{ eventoSeleccionado.descripcion }}</p>
+
+      <div class="text-sm text-gray-500">
+        <p><strong>Fecha:</strong> {{ eventoSeleccionado.fecha }} </p>
+        @if(eventoSeleccionado.fecha_fin) {
+          <p><strong>Fecha fin:</strong> {{ eventoSeleccionado.fecha_fin }} </p>
+        }
+        <p><strong>Hora inicio:</strong> {{ eventoSeleccionado.hora_inicio }} </p>
+        @if(eventoSeleccionado.hora_fin) {
+          <p><strong>Hora fin:</strong> {{ eventoSeleccionado.hora_fin }} </p>
+        }
+        <p><strong>Ubicación:</strong> {{ eventoSeleccionado.ubicacion }} </p>
+        @if(eventoSeleccionado.entrada){
+          <p><strong>Entrada:</strong> {{ eventoSeleccionado.entrada }} </p>
+        }
+        @if(eventoSeleccionado.precio){
+        <p><strong>Precio:</strong> {{ eventoSeleccionado.precio | currency:'EUR' }}</p>
+      }
+      </div>
+    </div>
+
+    <button
+    (click)="cerrarModal()"
+    class="mt-6 w-full bg-yellow-400 text-white py-2 px-4 rounded-lg hover:bg-yellow-600 transition"
+  >
+    Cerrar
+  </button>
+  </div>
+</div>
+</div>
+}
+</div>
+<app-footer></app-footer>

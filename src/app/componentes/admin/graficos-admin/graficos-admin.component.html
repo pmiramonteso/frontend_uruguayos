@@ -1,0 +1,21 @@
+<div class="charts-container mb-20">   
+  <div>
+    <canvas id="graficoBarras"></canvas>
+  </div>
+  <div>
+    <canvas id="graficoLineas"></canvas>
+  </div>
+  <div class="contenedor-grafico">
+    <div id="contenedorGraficoTorta">
+      <canvas id="graficoTorta"></canvas>
+    </div>
+    <div class="botones-anios">
+      @for (anio of aniosDisponibles; track anio) {
+        <button class="btn-anio bg-teal-400" (click)="cambiarAnio(anio)">
+          {{ anio }}
+        </button>
+      }
+    </div>
+  </div>
+</div>
+<app-footer></app-footer>

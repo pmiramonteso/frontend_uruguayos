@@ -1,0 +1,196 @@
+<div class="space-y-6">
+  @if(!editando && !agregando){
+    <div class="flex justify-center mt-6">
+  <button
+    (click)="agregarNegocio()"
+    class="btn-77 max-w-xs px-4 py-2 text-white hover:text-teal-600 bg-teal-400 rounded-md hover:bg-white"
+    >
+    NUEVO NEGOCIO
+  </button>
+</div>
+}
+  
+  @if (mostrarFormulario) {
+  <form
+    [formGroup]="negocioForm"
+    (ngSubmit)="agregarNegocio()"
+    class="space-y-4 bg-yellow-100 border-2 border-yellow-300 p-4 rounded-lg shadow-lg max-w-2xl mx-auto"
+  >
+    <!-- Nombre -->
+    <div>
+      <label for="nombre" class="block text-sm font-medium mb-1">Nombre</label>
+      <input
+        id="nombre"
+        formControlName="nombre"
+        type="text"
+        placeholder="Nombre del negocio"
+        class=" border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+
+    <!-- Descripción -->
+    <div>
+      <label for="descripcion" class="block text-sm font-medium mb-1"
+        >Descripción</label
+      >
+      <input
+        id="descripcion"
+        formControlName="descripcion"
+        type="text"
+        placeholder="Breve descripción"
+        class=" border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+
+    <!-- Dirección -->
+    <div>
+      <label for="direccion" class="block text-sm font-medium mb-1"
+        >Dirección</label
+      >
+      <input
+        id="direccion"
+        formControlName="direccion"
+        type="text"
+        placeholder="Dirección del negocio"
+        class=" border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+
+    <!-- Latitud -->
+    <div>
+      <label for="latitud" class="block text-sm font-medium mb-1"
+        >Latitud</label
+      >
+      <input
+        id="latitud"
+        formControlName="latitud"
+        type="text"
+        placeholder="Latitud"
+        class=" border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+
+    <!-- Longitud -->
+    <div>
+      <label for="longitud" class="block text-sm font-medium mb-1"
+        >Longitud</label
+      >
+      <input
+        id="longitud"
+        formControlName="longitud"
+        type="text"
+        placeholder="Longitud"
+        class=" border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+
+    <!-- Redes Sociales -->
+    <div>
+      <label for="tipoRedSocial" class="block text-sm font-medium mb-1"
+        >Redes Sociales</label
+      >
+      <div class="flex items-center gap-4">
+        <select
+          id="redSocial"
+          formControlName="tipoRedSocial"
+          class=" border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+        >
+          <option value="" disabled selected>Selecciona una red social</option>
+          <option value="instagram">Instagram</option>
+          <option value="pagina_web">Página Web</option>
+          <option value="twitter">Twitter</option>
+          <option value="facebook">Facebook</option>
+          <option value="youtube">YouTube</option>
+        </select>
+
+        <input
+          id="urlRedSocial"
+          formControlName="urlRedSocial"
+          type="text"
+          class=" border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+          placeholder="URL de la red social"
+        />
+      </div>
+    </div>
+
+    <div>
+      <label for="categoria" class="block text-sm font-medium mb-1"
+        >Categoría</label
+      >
+      <input
+        id="categoria"
+        formControlName="categoria"
+        type="text"
+        placeholder="Categoría del negocio"
+        class=" border border-yellow-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-yellow-300"
+      />
+    </div>
+
+    <button
+      type="submit"
+      class="bg-teal-400 text-white px-4 py-2 rounded-md hover:bg-teal-600 focus:ring-2 focus:ring-teal-500 w-full"
+    >
+      Guardar
+    </button>
+  </form>
+  }
+
+  <div class="space-y-4 mt-8">
+    @if(!editando && !agregando){
+    <h2 class="text-2xl font-semibold text-center">Lista de Negocios</h2>
+    @if(negocios && negocios.length > 0) {
+    <div
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6"
+    >
+      @for(negocio of negocios; track negocio.id_negocio) {
+      <div class="card">
+        <h3 class="font-semibold text-lg">{{ negocio.nombre }}</h3>
+        <p class="text-sm text-gray-400">{{ negocio.descripcion }}</p>
+        <p class="text-sm text-gray-400">{{ negocio.direccion }}</p>
+        <p class="text-sm text-gray-400">{{ negocio.categoria }}</p>
+
+        <div class="mt-2 flex items-center gap-4">
+          @if(negocio.tipoRedSocial === 'instagram') {
+          <i class="fab fa-instagram text-pink-500 text-xl"></i>
+          } @if(negocio.tipoRedSocial === 'twitter') {
+          <i class="fab fa-twitter text-blue-400 text-xl"></i>
+          } @if(negocio.tipoRedSocial === 'facebook') {
+          <i class="fab fa-facebook text-blue-600 text-xl"></i>
+          } @if(negocio.tipoRedSocial === 'youtube') {
+          <i class="fab fa-youtube text-red-500 text-xl"></i>
+          } @if(negocio.tipoRedSocial === 'pagina_web') {
+          <i class="fas fa-globe text-green-500 text-xl"></i>
+          }
+
+          <a
+            [href]="negocio.urlRedSocial"
+            target="_blank"
+            class="text-blue-400 underline"
+          >
+            {{ negocio.urlRedSocial }}
+          </a>
+        </div>
+        <div class="mt-4 flex gap-4">
+          <button
+            (click)="editarNegocio(negocio)"
+            class="btn-77 text-white hover:text-teal-600 bg-teal-400 rounded-md hover:bg-white"
+          ><span>
+            EDITAR
+          </span>
+          </button>
+          <button
+            (click)="eliminarNegocio(negocio.id_negocio)"
+            class="btn-77 text-white hover:text-teal-600  bg-black hover:bg-white rounded-md"
+          ><span>
+            ELIMINAR
+          </span>
+          </button>
+        </div>
+      </div>
+      }
+    </div>
+    } @else {
+    <div class="text-center text-gray-500">No hay negocios disponibles.</div>
+    } }
+  </div>
+</div>
