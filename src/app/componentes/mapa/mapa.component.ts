@@ -2,14 +2,10 @@ import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { Negocio } from '../../interface/negocio';
 import { NegociosService } from '../../service/negocios.service';
 import { FooterComponent } from '../footer/footer.component';
-
 import * as L from 'leaflet';
+import { Map, MapOptions, MarkerClusterGroup, MarkerClusterGroupOptions } from 'leaflet';
 import 'leaflet.markercluster';
-declare module 'leaflet' {
-  namespace markerClusterGroup {
-  }
-  function markerClusterGroup(options?: any): L.MarkerClusterGroup;
-}
+(window as any).L = L;
 
 @Component({
     selector: 'app-mapa',
@@ -207,7 +203,7 @@ cerrarModal(): void {
   cargarNegocios(): void {
       this.negociosService.obtenerNegocios().subscribe((negocios: Negocio[]) => {
           this.negocios = negocios;
-          this.añadirMarkers();
+          this.agregaMarkers();
           this.actualizarFiltrados();
           }, (error) => {
         console.error('Error al cargar los negocios:', error);
@@ -233,7 +229,7 @@ cerrarModal(): void {
     this.filtrarPorCategorias();
   }
   
-  añadirMarkers(negocios: Negocio[] = this.negocios): void {
+  agregaMarkers(negocios: Negocio[] = this.negocios): void {
     if (!this.map) return;
 
     this.limpiarMarkers();
@@ -243,7 +239,7 @@ cerrarModal(): void {
       spiderfyOnMaxZoom: true,
       showCoverageOnHover: true,
       zoomToBoundsOnClick: true,
-      maxClusterRadius: (zoom: number) => 50 
+      maxClusterRadius: 50 
     });
 
     negocios.forEach((negocio) => {
@@ -397,7 +393,7 @@ cerrarModal(): void {
 
   filtrarPorCategorias(): void {
     if (this.categoriasSeleccionadas.length === 0) {
-      this.añadirMarkers(); // Muestra todos los negocios
+      this.agregaMarkers(); // Muestra todos los negocios
       return;
     }
   
@@ -406,7 +402,7 @@ cerrarModal(): void {
     );
   
     this.limpiarMarkers();
-    this.añadirMarkers(negociosFiltrados);
+    this.agregaMarkers(negociosFiltrados);
   }
   
   limpiarMarkers(): void {
