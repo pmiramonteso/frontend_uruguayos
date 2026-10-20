@@ -1,11 +1,14 @@
+/// <reference types="leaflet.markercluster" />
 import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { Negocio } from '../../interface/negocio';
 import { NegociosService } from '../../service/negocios.service';
 import { FooterComponent } from '../footer/footer.component';
-import * as L from 'leaflet';
-import { Map, MapOptions, MarkerClusterGroup, MarkerClusterGroupOptions } from 'leaflet';
-import 'leaflet.markercluster';
-(window as any).L = L;
+import type * as Leaflet from 'leaflet';
+
+// Leaflet y leaflet.markercluster se cargan como scripts globales (angular.json).
+// El plugin se registra sobre window.L, así que hay que usar esa misma copia:
+// el módulo ESM importado es otra instancia y no tiene markerClusterGroup.
+declare const L: typeof Leaflet;
 
 @Component({
     selector: 'app-mapa',
@@ -15,8 +18,8 @@ import 'leaflet.markercluster';
     styleUrl: './mapa.component.scss'
 })
 export class MapaComponent implements OnInit, AfterViewInit {
-  map: L.Map | null = null;
-  markerClusterGroup: L.MarkerClusterGroup | null = null;
+  map: Leaflet.Map | null = null;
+  markerClusterGroup: Leaflet.MarkerClusterGroup | null = null;
   negocios: Negocio[] = [];
   isAdmin: boolean = false;
   mostrarModal: boolean = false;
@@ -25,7 +28,7 @@ export class MapaComponent implements OnInit, AfterViewInit {
   categorias: string[] = ['restaurante', 'tienda', 'servicio', 'panaderia'];
   categoriaSeleccionada: string | null = null;
   categoriasSeleccionadas: string[] = [];
-  currentSelectedMarker: L.Marker | null = null;
+  currentSelectedMarker: Leaflet.Marker | null = null;
   iconRestaurante = L.icon({
     iconUrl: '/assets/iconos/menu.png',
     iconSize: [30, 30], 
