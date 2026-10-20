@@ -1,0 +1,4 @@
+---
+deployment:
+  tasks:
+    - /bin/bash /home/i308181/repositories/frontend_production/deploy.sh /home/i308181/public_html
