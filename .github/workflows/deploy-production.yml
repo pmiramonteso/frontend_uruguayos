@@ -29,6 +29,9 @@ jobs:
 
   deploy:
     needs: version
+    # El job llamado sube la rama deploy-*: necesita permiso de escritura
+    permissions:
+      contents: write
     uses: ./.github/workflows/_deploy.yml
     with:
       environment: production
