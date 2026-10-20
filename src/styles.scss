@@ -1,6 +1,6 @@
-@use 'tailwindcss/base';
-@use 'tailwindcss/components';
-@use 'tailwindcss/utilities';
+@import "tailwindcss";
+@plugin "daisyui";
+@config "../tailwind.config.js";
 
   .fc-toolbar-title {
     text-transform: capitalize;
