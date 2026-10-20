@@ -3,11 +3,11 @@ import { BlogService } from '../../service/blog.service';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { Blog } from '../../interface/blog';
-import { CommonModule } from '@angular/common';
+
 import { environment } from '../../environments/environment';
 @Component({
     selector: 'app-blog',
-    imports: [RouterModule, FooterComponent, CommonModule],
+    imports: [RouterModule, FooterComponent],
     templateUrl: './blog.component.html',
     styleUrl: './blog.component.scss'
 })

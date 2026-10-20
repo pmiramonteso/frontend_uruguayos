@@ -4,11 +4,11 @@ import { BlogService } from '../../../service/blog.service';
 import { EditorModule  } from '@tinymce/tinymce-angular';
 import { Blog } from '../../../interface/blog';
 import { NotificacionesService } from '../../../service/notificaciones.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-blog-admin',
-    imports: [ReactiveFormsModule, EditorModule, CommonModule],
+    imports: [ReactiveFormsModule, EditorModule],
     templateUrl: './blog-admin.component.html',
     styleUrl: './blog-admin.component.scss'
 })

@@ -3,12 +3,12 @@ import { EventosService } from '../../../service/eventos.service';
 import { Evento } from '../../../interface/evento';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NotificacionesService } from '../../../service/notificaciones.service';
-import { CommonModule } from '@angular/common';
+
 type ColorKey = 'pastelVioleta' | 'pastelIndigo' | 'pastelBlue' | 'pastelGreen' | 'pastelYellow' | 'pastelOrange' | 'pastelRed';
 
 @Component({
     selector: 'app-eventos-admin',
-    imports: [ReactiveFormsModule, CommonModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './eventos-admin.component.html',
     styleUrl: './eventos-admin.component.scss'
 })

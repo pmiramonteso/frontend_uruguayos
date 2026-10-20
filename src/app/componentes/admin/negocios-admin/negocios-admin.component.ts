@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angula
 import { NegociosService } from '../../../service/negocios.service';
 import { Negocio } from '../../../interface/negocio';
 import { NotificacionesService } from '../../../service/notificaciones.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-negocios-admin',
-    imports: [ReactiveFormsModule, CommonModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './negocios-admin.component.html',
     styleUrl: './negocios-admin.component.scss'
 })

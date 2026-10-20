@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BlogService } from '../../service/blog.service';
 import { Blog } from '../../interface/blog';
-import { CommonModule } from '@angular/common';
+
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
 import { ModalService } from '../../service/modal.service';
@@ -9,7 +9,7 @@ import { RegistroComponent } from '../user/registro/registro.component';
 import { environment } from '../../environments/environment';
 @Component({
     selector: 'app-home',
-    imports: [CommonModule, FooterComponent, RegistroComponent, RouterModule],
+    imports: [FooterComponent, RegistroComponent, RouterModule],
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
