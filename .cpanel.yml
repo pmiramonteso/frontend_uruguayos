@@ -1,0 +1,4 @@
+---
+deployment:
+  tasks:
+    - /bin/bash /home/i308181/repositories/frontend_staging/deploy.sh /home/i308181/staging.uruguayosenespanya.com
