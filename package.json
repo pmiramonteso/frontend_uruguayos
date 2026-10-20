@@ -36,7 +36,7 @@
     "postcss": "^8.5.30",
     "rxjs": "~7.8.0",
     "tailwindcss": "^4.3.3",
-    "tinymce": "^7.5.1",
+    "tinymce": "^8.10.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.15.0"
   },
