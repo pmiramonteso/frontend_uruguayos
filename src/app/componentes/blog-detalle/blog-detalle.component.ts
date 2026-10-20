@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, RouterModule } from '@angular/router';
 import { BlogService } from '../../service/blog.service';
 import { Blog } from '../../interface/blog';
@@ -9,6 +9,7 @@ import { FooterComponent } from '../footer/footer.component';
   selector: 'app-blog-detalle',
   imports: [RouterModule, FooterComponent],
   templateUrl: './blog-detalle.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './blog-detalle.component.scss'
 })
 

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterModule, Router } from '@angular/router';
 import { AuthService } from '../../service/auth.service';
 import { ModalService } from '../../service/modal.service';
@@ -10,6 +10,7 @@ import { environment } from '../../environments/environment';
     selector: 'app-navegacion',
     imports: [RouterModule, RegistroComponent, LoginComponent],
     templateUrl: './navegacion.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './navegacion.component.scss'
 })
 export class NavegacionComponent {

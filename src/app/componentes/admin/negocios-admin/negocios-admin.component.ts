@@ -1,14 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { NegociosService } from '../../../service/negocios.service';
 import { Negocio } from '../../../interface/negocio';
 import { NotificacionesService } from '../../../service/notificaciones.service';
-import { CommonModule } from '@angular/common';
+
 
 @Component({
     selector: 'app-negocios-admin',
-    imports: [ReactiveFormsModule, CommonModule],
+    imports: [ReactiveFormsModule],
     templateUrl: './negocios-admin.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './negocios-admin.component.scss'
 })
 export class NegociosAdminComponent implements OnInit{

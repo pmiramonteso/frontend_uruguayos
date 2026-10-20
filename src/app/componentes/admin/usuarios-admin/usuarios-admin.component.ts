@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { User } from '../../../interface/user';
 import { UsuariosService } from '../../../service/usuarios.service';
 import { HttpErrorResponse } from '@angular/common/http';
@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
     selector: 'app-lista-usuarios',
     imports: [FormsModule],
     templateUrl: './usuarios-admin.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './usuarios-admin.component.scss'
 })
 

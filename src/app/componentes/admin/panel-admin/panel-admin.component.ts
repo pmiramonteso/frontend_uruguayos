@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 
@@ -6,6 +6,7 @@ import { AuthService } from '../../../service/auth.service';
   selector: 'app-panel-admin',
   standalone: true,
   templateUrl: './panel-admin.component.html',
+  changeDetection: ChangeDetectionStrategy.Eager,
   styleUrls: ['./panel-admin.component.scss']
 })
 export class PanelAdminComponent implements OnInit {

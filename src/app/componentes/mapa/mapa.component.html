@@ -95,7 +95,7 @@
         <i class="fas fa-globe text-green-500 text-xl"></i>
       }
 
-      <a [href]="negocioSeleccionado?.urlRedSocial" target="_blank" class="text-blue-400 underline">
+      <a [href]="$safeNavigationMigration(negocioSeleccionado?.urlRedSocial)" target="_blank" class="text-blue-400 underline">
         {{ negocioSeleccionado?.urlRedSocial }}
       </a>
     </div>

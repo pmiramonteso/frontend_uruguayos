@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ViewChild, ElementRef, ChangeDetectionStrategy } from '@angular/core';
 import { EventosService } from '../../service/eventos.service';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import interactionPlugin from '@fullcalendar/interaction';
@@ -13,6 +13,7 @@ import { environment } from '../../environments/environment';
     selector: 'app-calendario',
     imports: [CommonModule, FullCalendarModule, FooterComponent ],
     templateUrl: './calendario.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './calendario.component.scss'
 })
 

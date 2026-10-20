@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { NotificacionesService } from '../../service/notificaciones.service';
 import { CommonModule } from '@angular/common';
 
@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
     selector: 'app-notificacion',
     imports: [CommonModule],
     templateUrl: './notificacion.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './notificacion.component.scss'
 })
 export class NotificacionComponent implements OnInit{

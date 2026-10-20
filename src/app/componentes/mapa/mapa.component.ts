@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
 import { Negocio } from '../../interface/negocio';
 import { NegociosService } from '../../service/negocios.service';
 import { FooterComponent } from '../footer/footer.component';
@@ -11,6 +11,7 @@ import 'leaflet.markercluster';
     selector: 'app-mapa',
     imports: [FooterComponent],
     templateUrl: './mapa.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './mapa.component.scss'
 })
 export class MapaComponent implements OnInit, AfterViewInit {
