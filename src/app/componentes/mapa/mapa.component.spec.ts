@@ -6,6 +6,13 @@ describe('MapaComponent', () => {
   let component: MapaComponent;
   let fixture: ComponentFixture<MapaComponent>;
 
+  // En la app, Leaflet y markercluster se cargan como scripts globales (angular.json);
+  // en los tests no, así que se registran aquí sobre una L global modificable
+  beforeAll(async () => {
+    (globalThis as any).L = { ...(await import('leaflet')) };
+    await import('leaflet.markercluster');
+  });
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [MapaComponent]
