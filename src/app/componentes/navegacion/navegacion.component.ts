@@ -38,7 +38,9 @@ export class NavegacionComponent {
     const roles = Array.isArray(user.roles) ? user.roles : [user.roles];
     this.isAdmin = roles.includes('admin');
   } else {
-    this.logout();
+    // Sin sesión: solo limpiar los datos locales. No llamar a logout(), que redirige
+    // a /home y haría que los enlaces directos (/mapa, /calendario...) acabaran en la portada
+    this.limpiarSesion();
   }
   }
 
@@ -53,16 +55,19 @@ toggleDropdownMenu(): void {
   this.isDropdownMenuOpen = !this.isDropdownMenuOpen;
 }
 
+private limpiarSesion(): void {
+    this.isLoggedIn = false;
+    this.isAdmin = false;
+    this.userName = '';
+    this.userImage = '/assets/img/avatar-IG.png';
+    localStorage.removeItem('token');
+    localStorage.removeItem('user');
+  }
+
 logout(): void {
     this.authService.logout().subscribe({
       next: () => {
-        this.isLoggedIn = false;
-        this.isAdmin = false;
-        this.userName = '';
-        this.userImage = '/assets/img/avatar-IG.png';
-        localStorage.removeItem('token');
-        localStorage.removeItem('user');
-  
+        this.limpiarSesion();
         this.router.navigate(['/home']);
       },
       error: (err) => {
