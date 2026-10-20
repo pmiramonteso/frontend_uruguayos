@@ -1,0 +1,88 @@
+# Lógica común de despliegue (la usan deploy-staging.yml y deploy-production.yml)
+name: _deploy
+
+on:
+  workflow_call:
+    inputs:
+      environment:
+        type: string
+        required: true
+      ref:
+        type: string
+        required: true
+
+concurrency:
+  group: deploy-frontend-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    name: Desplegar en ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ inputs.environment }}
+      url: ${{ vars.SITE_URL }}
+    permissions:
+      contents: write
+    env:
+      BRANCH: deploy-${{ inputs.environment }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: ${{ inputs.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 24
+          cache: npm
+
+      - run: npm ci
+
+      - name: Compilar (${{ vars.BUILD_CONFIG }})
+        run: npx ng build --configuration ${{ vars.BUILD_CONFIG }}
+
+      - name: Preparar la rama ${{ env.BRANCH }}
+        run: |
+          sha=$(git rev-parse HEAD)
+          out=$(mktemp -d)
+          # Rama de despliegue: historial lineal para que el cPanel pueda hacer pull
+          if git ls-remote --exit-code --heads origin "$BRANCH" >/dev/null; then
+            git clone --depth 1 --branch "$BRANCH" "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" "$out"
+          else
+            git init -q -b "$BRANCH" "$out"
+            git -C "$out" remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          fi
+          find "$out" -mindepth 1 -maxdepth 1 ! -name .git -exec rm -rf {} +
+
+          cp -r dist/proj_uruguayos/browser "$out/site"
+          cp .github/deploy/deploy.sh "$out/deploy.sh"
+          echo "$sha" > "$out/.deploy-info"
+          cat > "$out/.cpanel.yml" <<EOF
+          ---
+          deployment:
+            tasks:
+              - /bin/bash ${{ vars.DEPLOY_REPO }}/deploy.sh ${{ vars.DOCROOT }}
+          EOF
+
+          cd "$out"
+          git add -A
+          git -c user.name="github-actions" -c user.email="github-actions@users.noreply.github.com" \
+            commit -q -m "Despliegue de $sha en ${{ inputs.environment }}" || echo "Sin cambios respecto al último despliegue"
+          git push -q origin "HEAD:$BRANCH"
+
+      - name: Desplegar en el cPanel
+        env:
+          CPANEL_HOST: ${{ vars.CPANEL_HOST }}
+          CPANEL_USER: ${{ vars.CPANEL_USER }}
+          CPANEL_TOKEN: ${{ secrets.CPANEL_TOKEN }}
+          REPO_ROOT: ${{ vars.DEPLOY_REPO }}
+        run: bash .github/deploy/cpanel-deploy.sh
+
+      - name: Comprobar que se sirve la versión nueva
+        run: |
+          main=$(basename dist/proj_uruguayos/browser/main-*.js)
+          for i in $(seq 1 12); do
+            if curl -sf "${{ vars.SITE_URL }}/" | grep -q "$main"; then echo "OK: se sirve $main"; exit 0; fi
+            echo "Todavía no se sirve $main..."; sleep 10
+          done
+          exit 1
