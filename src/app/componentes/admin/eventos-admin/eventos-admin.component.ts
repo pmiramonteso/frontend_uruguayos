@@ -21,7 +21,17 @@ export class EventosAdminComponent implements OnInit {
   editando = false;
   agregando = false;
   evento: Partial<Evento> = {};
-  selectedColor: ColorKey = 'pastelBlue';  
+  selectedColor: ColorKey = 'pastelBlue';
+  // Clases completas para que Tailwind las genere
+  colores: { nombre: ColorKey, clase: string }[] = [
+    { nombre: 'pastelVioleta', clase: 'bg-pastelVioleta' },
+    { nombre: 'pastelIndigo', clase: 'bg-pastelIndigo' },
+    { nombre: 'pastelBlue', clase: 'bg-pastelBlue' },
+    { nombre: 'pastelGreen', clase: 'bg-pastelGreen' },
+    { nombre: 'pastelYellow', clase: 'bg-pastelYellow' },
+    { nombre: 'pastelOrange', clase: 'bg-pastelOrange' },
+    { nombre: 'pastelRed', clase: 'bg-pastelRed' },
+  ];
   selectedFile: File | null = null;
 
   constructor(private fb: FormBuilder, private eventosService: EventosService, private notificationService: NotificacionesService, private cdr: ChangeDetectorRef) {}
@@ -33,7 +43,7 @@ export class EventosAdminComponent implements OnInit {
       fecha_fin: [''],
       hora_inicio: ['', Validators.required],
       hora_fin: [''],
-      color: ['#ffffff', Validators.required],
+      color: ['pastelBlue', Validators.required],
       entrada: ['', Validators.required],
       precio: [null, Validators.min(0)],
       ubicacion: ['', Validators.required]
@@ -68,9 +78,20 @@ export class EventosAdminComponent implements OnInit {
   limpiarFormulario(): void {
     this.editando = false;
     this.agregando = false;
-    this.eventoForm.reset();
+    this.eventoForm.reset({ color: 'pastelBlue' });
     this.eventoEditando = null;
+    this.selectedFile = null;
     this.mostrarFormularioEvento = false;
+  }
+
+  nuevoEvento(): void {
+    this.limpiarFormulario();
+    this.agregando = true;
+    this.mostrarFormularioEvento = true;
+  }
+
+  private mensajeError(error: any, porDefecto: string): string {
+    return error?.error?.errors?.[0]?.msg || error?.error?.message || porDefecto;
   }
 
   setColor(color: string): void {
@@ -102,48 +123,26 @@ export class EventosAdminComponent implements OnInit {
     }
   }
 
-  agregarEvento() {
-    this.mostrarFormularioEvento = !this.mostrarFormularioEvento;
-    this.editando = false;
-    this.agregando = true;
-
-    if (this.evento.fecha) {
-      this.evento.fecha = new Date(this.evento.fecha).toISOString().split('T')[0];
-    } else {
-      delete this.evento.fecha;
+  guardarEvento() {
+    if (this.eventoForm.invalid) {
+      this.eventoForm.markAllAsTouched();
+      this.notificationService.mostrarError('Rellena todos los campos obligatorios');
+      return;
     }
 
-    if (this.evento.fecha_fin) {
-      this.evento.fecha_fin = new Date(this.evento.fecha_fin).toISOString().split('T')[0];
-    } else {
-      this.evento.fecha_fin = null;
-    }
+    const formValue = this.eventoForm.value;
 
-    if (this.evento.hora_inicio) {
-      this.evento.hora_inicio = new Date(`1970-01-01T${this.evento.hora_inicio}`).toISOString().split('T')[1].slice(0, 5);
-    } else {
-      delete this.evento.hora_inicio;
+    if (!['pastelVioleta', 'pastelIndigo', 'pastelBlue', 'pastelGreen', 'pastelYellow', 'pastelOrange', 'pastelRed'].includes(formValue.color)) {
+      this.notificationService.mostrarError('Elige un color para el evento');
+      return;
     }
-
-    if (this.evento.hora_fin) {
-      this.evento.hora_fin = new Date(`1970-01-01T${this.evento.hora_fin}`).toISOString().split('T')[1].slice(0, 5);
-    } else {
-      this.evento.hora_fin = null;
-    }
-    if (this.eventoForm.valid) {
-      const formValue = this.eventoForm.value;
-
-      if (!['pastelVioleta', 'pastelIndigo', 'pastelBlue', 'pastelGreen', 'pastelYellow', 'pastelOrange', 'pastelRed'].includes(formValue.color)) {
-        console.error('Color inválido:', formValue.color);
-        return;
-      }
 
     formValue.fecha = formValue.fecha ? new Date(formValue.fecha).toISOString().split('T')[0] : null;
     formValue.fecha_fin = formValue.fecha_fin ? new Date(formValue.fecha_fin).toISOString().split('T')[0] : null;
 
-      if (formValue.entrada === 'Gratuito') {
-        delete formValue.precio;
-      }
+    if (formValue.entrada === 'Gratuito') {
+      delete formValue.precio;
+    }
 
     const formData = new FormData();
     Object.keys(formValue).forEach(key => {
@@ -156,36 +155,34 @@ export class EventosAdminComponent implements OnInit {
     if (this.selectedFile) {
       formData.append('photo', this.selectedFile);
     }
-      
-      if (this.eventoEditando) {
-        const eventoActualizado = { ...formValue, id_evento: this.eventoEditando.id_evento };
-        console.log('Evento actualizado:', eventoActualizado);
-        this.eventosService.actualizarEvento(eventoActualizado).subscribe({
-          next: (response) => {
-            this.notificationService.mostrarExito('Evento actualizado con éxito');
-            this.limpiarFormulario();
-            this.obtenerEventos();
-          },
-          error: (error) => {
-            this.notificationService.mostrarError('Error al actualizar el evento');
-              console.error(error);
-          }
-        });
-      } else {
-        this.eventosService.crearEvento(formData).subscribe({
-          next: (response) => {
-            this.notificationService.mostrarExito('Evento creado con éxito');
-            this.limpiarFormulario();
-            this.obtenerEventos();
-          },
-          error: (error) => {
-            this.notificationService.mostrarError('Error al crear el evento');
-            console.error('Error al crear evento:', error);
-          }
-        });
-      }
+
+    // Si falla, el formulario queda abierto con los datos para poder corregirlos
+    if (this.eventoEditando) {
+      const eventoActualizado = { ...formValue, id_evento: this.eventoEditando.id_evento };
+      this.eventosService.actualizarEvento(eventoActualizado).subscribe({
+        next: () => {
+          this.notificationService.mostrarExito('Evento actualizado con éxito');
+          this.limpiarFormulario();
+          this.obtenerEventos();
+        },
+        error: (error) => {
+          this.notificationService.mostrarError(this.mensajeError(error, 'Error al actualizar el evento'));
+          console.error(error);
+        }
+      });
+    } else {
+      this.eventosService.crearEvento(formData).subscribe({
+        next: () => {
+          this.notificationService.mostrarExito('Evento creado con éxito');
+          this.limpiarFormulario();
+          this.obtenerEventos();
+        },
+        error: (error) => {
+          this.notificationService.mostrarError(this.mensajeError(error, 'Error al crear el evento'));
+          console.error('Error al crear evento:', error);
+        }
+      });
     }
-    this.obtenerEventos();
   }
 
   editarEvento(evento: Evento): void {
