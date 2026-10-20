@@ -1,4 +1,4 @@
-import { Component} from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { FormControl, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { AuthService } from '../../../service/auth.service';
 import { Router } from '@angular/router';
@@ -8,6 +8,7 @@ import { ModalService } from '../../../service/modal.service';
     selector: 'app-registro',
     imports: [ReactiveFormsModule],
     templateUrl: './registro.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './registro.component.scss'
 })
 export class RegistroComponent {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BlogService } from '../../service/blog.service';
 import { RouterModule } from '@angular/router';
 import { FooterComponent } from '../footer/footer.component';
@@ -9,6 +9,7 @@ import { environment } from '../../environments/environment';
     selector: 'app-blog',
     imports: [RouterModule, FooterComponent],
     templateUrl: './blog.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './blog.component.scss'
 })
 export class BlogComponent implements OnInit{

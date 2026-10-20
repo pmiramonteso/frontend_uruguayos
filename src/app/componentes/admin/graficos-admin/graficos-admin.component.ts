@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Chart, registerables } from 'chart.js';
 import { GraficosService } from '../../../service/graficos.service';
 
@@ -11,6 +11,7 @@ Chart.register(...registerables);
     selector: 'app-graficos-admin',
     imports: [FooterComponent, RouterModule],
     templateUrl: './graficos-admin.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./graficos-admin.component.scss']
 })
 export class GraficosAdminComponent implements OnInit {

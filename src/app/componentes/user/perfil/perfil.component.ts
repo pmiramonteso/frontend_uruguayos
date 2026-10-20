@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 import { environment } from '../../../environments/environment';
@@ -6,6 +6,7 @@ import { environment } from '../../../environments/environment';
     selector: 'app-perfil',
     imports: [],
     templateUrl: './perfil.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './perfil.component.scss'
 })
 export class PerfilComponent {

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { BlogService } from '../../../service/blog.service';
 import { EditorModule  } from '@tinymce/tinymce-angular';
@@ -10,6 +10,7 @@ import { NotificacionesService } from '../../../service/notificaciones.service';
     selector: 'app-blog-admin',
     imports: [ReactiveFormsModule, EditorModule],
     templateUrl: './blog-admin.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './blog-admin.component.scss'
 })
 export class BlogAdminComponent implements OnInit{

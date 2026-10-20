@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { BlogService } from '../../service/blog.service';
 import { Blog } from '../../interface/blog';
 
@@ -11,6 +11,7 @@ import { environment } from '../../environments/environment';
     selector: 'app-home',
     imports: [FooterComponent, RegistroComponent, RouterModule],
     templateUrl: './home.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit{

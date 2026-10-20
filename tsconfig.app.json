@@ -7,7 +7,13 @@
     "types": []
   },
   "angularCompilerOptions": {
-    "allowCommonJsDependencies": true
+    "allowCommonJsDependencies": true,
+    "extendedDiagnostics": {
+      "checks": {
+        "nullishCoalescingNotNullable": "suppress",
+        "optionalChainNotNullable": "suppress"
+      }
+    }
   },
   "files": [
     "src/main.ts"
