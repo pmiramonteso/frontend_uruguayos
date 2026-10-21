@@ -42,6 +42,13 @@ export class NavegacionComponent {
     // a /home y haría que los enlaces directos (/mapa, /calendario...) acabaran en la portada
     this.limpiarSesion();
   }
+
+    // Cuando cambia la foto en el perfil, actualizar el avatar sin recargar
+    this.authService.usuarioLogueado$.subscribe(usuario => {
+      if (usuario?.photo) {
+        this.userImage = `${this.baseUrl}assets/img/${usuario.photo}`;
+      }
+    });
   }
 
   toggleMobileMenu(): void {
