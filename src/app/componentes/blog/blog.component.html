@@ -29,7 +29,7 @@
         <div class="p-6 flex flex-col justify-between h-full">
           <h3 class="text-2xl font-semibold text-gray-800 mb-2 truncate">{{ blog.titulo }}</h3>
           <p class="text-teal-500 text-sm mb-4">{{ blog.categoria || 'Sin categoría' }}</p>
-          <p class="text-gray-600 mb-4 flex-grow truncate" [innerHTML]="blog.contenido"></p>
+          <p class="text-gray-600 mb-4 grow truncate" [innerHTML]="blog.contenido"></p>
           <a [routerLink]="['/blog', blog.id_blog]" class="hover:text-yellow-600 text-yellow-400 font-semibold py-2 px-4 rounded-lg transition duration-300 ml-auto">
             LEER MÁS
           </a>

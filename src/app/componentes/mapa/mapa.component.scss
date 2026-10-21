@@ -61,10 +61,6 @@ html, body {
   }
 }
 
-:global(.btn-ver-mas:hover) {
-  background-color: #0d9488;
-}
-
 /* Estilos para los clusters */
 :global(.marker-cluster) {
   background-color: rgba(20, 184, 166, 0.6);
