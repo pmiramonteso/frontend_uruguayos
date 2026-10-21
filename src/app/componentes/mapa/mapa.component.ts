@@ -267,51 +267,12 @@ cerrarModal(): void {
              }
 
         const marker = L.marker([lat, lng], { icon: markerIcon });
-        marker.bindPopup(`
-          <strong>${negocio.nombre}</strong><br>
-          ${negocio.direccion}<br>
-          <button class="btn-ver-mas">Ver más</button>
-        `);
-        
-        marker.on('popupopen', (e) => {
-          // Añadir evento al botón dentro del popup
-          if (this.markerClusterGroup) {
-            const btn = document.querySelector('.btn-ver-mas');
-          if (btn) {
-            btn.addEventListener('click', () => {
-              this.seleccionarNegocio(negocio);
-              this.irACard(negocio.id_negocio);
-              this.abrirModal(negocio);
-              marker.closePopup();
-            });
-          }
-        }
-        });
-        
-        // Añadir el evento click al marcador
+
+        // Clic en el marcador: el mismo modal que al elegir el negocio en la lista
+        // (abrirModal ya se encarga de resaltar el icono)
         marker.on('click', () => {
-          // Restaurar icono anterior si existe
-          if (this.currentSelectedMarker) {
-            const prevCategoria = this.negocios.find(n => 
-              n.latitud == this.currentSelectedMarker?.getLatLng().lat.toString() && 
-              n.longitud == this.currentSelectedMarker?.getLatLng().lng.toString()
-            )?.categoria;
-            
-            if (prevCategoria === 'restaurante') {
-              this.currentSelectedMarker.setIcon(this.iconRestaurante);
-            } else if (prevCategoria === 'panaderia') {
-              this.currentSelectedMarker.setIcon(this.iconPanaderia);
-            }
-          }
-
-          // Establecer el nuevo icono seleccionado
-          if (negocio.categoria === 'restaurante') {
-            marker.setIcon(this.iconRestauranteSelected);
-          } else if (negocio.categoria === 'panaderia') {
-            marker.setIcon(this.iconPanaderiaSelected);
-          }
-
-          this.currentSelectedMarker = marker;
+          this.irACard(negocio.id_negocio);
+          this.abrirModal(negocio);
         });
         
         // Añadir el marcador al grupo de clusters
