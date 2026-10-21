@@ -1,0 +1,1 @@
+var n={production:!0,endpoint:`https://staging.uruguayosenespanya.com/`};export{n as t};
