@@ -2,6 +2,7 @@ import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import { AuthService } from '../../../service/auth.service';
 import { environment } from '../../../environments/environment';
+import { NotificacionesService } from '../../../service/notificaciones.service';
 @Component({
     selector: 'app-perfil',
     imports: [],
@@ -14,7 +15,7 @@ export class PerfilComponent {
   isLoggedIn = false;
   userImage: string = "/assets/img/avatar-IG.webp";
 
-  constructor(private router: Router, private authService: AuthService) {
+  constructor(private router: Router, private authService: AuthService, private notificacionService: NotificacionesService) {
     const userData = localStorage.getItem('user');
     this.user = userData ? JSON.parse(userData) : null;
   }
@@ -30,31 +31,41 @@ export class PerfilComponent {
   changeProfilePicture() {
     const fileInput = document.createElement('input');
     fileInput.type = 'file';
-    fileInput.accept = 'image/*';
+    // Los mismos formatos y tamaño que acepta el backend (middlewares/upload.js)
+    fileInput.accept = 'image/jpeg,image/png,image/gif,image/webp';
     fileInput.click();
   
     fileInput.onchange = (event: any) => {
-      const file = event.target.files[0];
-      if (file) {
-        this.uploadPhoto(file);
+      const file: File | undefined = event.target.files[0];
+      if (!file) return;
+      if (file.size > 2 * 1024 * 1024) {
+        this.notificacionService.mostrarError('La foto no puede pesar más de 2 MB');
+        return;
       }
+      this.uploadPhoto(file);
     };
   }
   
   uploadPhoto(file: File) {
     const formData = new FormData();
-    formData.append('profilePicture', file);
+    // El backend (multer) espera el archivo en el campo "photo"
+    formData.append('photo', file);
   
-    this.authService.uploadPhoto(formData).subscribe((response) => {
-      if (response.success) {
-        this.user.profilePictureUrl = response.imageUrl;
-      }
+    this.authService.uploadPhoto(formData).subscribe({
+      next: (response) => {
+        this.userImage = `${environment.endpoint}assets/img/${response.photo}`;
+        this.notificacionService.mostrarExito('Foto actualizada');
+      },
+      error: () => this.notificacionService.mostrarError('No se ha podido subir la foto. Prueba con otra imagen.')
     });
   }
 
-  
   logout() {
-    localStorage.clear();
-    this.router.navigate(['home']);
+    // authService.logout() borra también la cookie de sesión; localStorage.clear() borraba
+    // además la elección de cookies del banner
+    this.authService.logout().subscribe({
+      complete: () => this.router.navigate(['home']),
+      error: () => this.router.navigate(['home'])
+    });
   }
 }

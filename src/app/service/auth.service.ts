@@ -92,12 +92,11 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}user/upload-photo`, formData, { withCredentials: true }).pipe(
       map(response => {
       if (response.photo) {
-
-        const photoUrl = `http://localhost:3000/assets/img/${response.photo}`;
-
+        // Se guarda solo el nombre del archivo: cada componente monta la URL con environment.endpoint
         const user = JSON.parse(localStorage.getItem('user') || '{}');
-        user.photo = photoUrl;
+        user.photo = response.photo;
         localStorage.setItem('user', JSON.stringify(user));
+        this.actualizarUsuarioLogueado();
       }
       return response;
       })
