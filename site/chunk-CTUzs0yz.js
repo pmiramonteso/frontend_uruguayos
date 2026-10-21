@@ -1,0 +1,1 @@
+import"./chunk-CN_cOfna.js";import{r as G}from"./main-SNBYW3F6.js";export{G as RegistroComponent};
