@@ -22,15 +22,15 @@ import { RecuperarPasswordComponent } from './componentes/user/recuperar-passwor
 
 
 export const routes: Routes = [
-    { path: 'admin', component: PanelAdminComponent},
-    { path: 'admin-negocios', component: NegociosAdminComponent},
-    { path: 'admin-eventos', component: EventosAdminComponent},
-    { path: 'admin-usuarios', component: UsuariosAdminComponent},
-    { path: 'admin-blog', component: BlogAdminComponent},
+    { path: 'admin', component: PanelAdminComponent, canActivate: [authGuard], data: { roles: ['admin'] } },
+    { path: 'admin-negocios', component: NegociosAdminComponent, canActivate: [authGuard], data: { roles: ['admin'] } },
+    { path: 'admin-eventos', component: EventosAdminComponent, canActivate: [authGuard], data: { roles: ['admin'] } },
+    { path: 'admin-usuarios', component: UsuariosAdminComponent, canActivate: [authGuard], data: { roles: ['admin'] } },
+    { path: 'admin-blog', component: BlogAdminComponent, canActivate: [authGuard], data: { roles: ['admin'] } },
 
     { path: 'login', component: LoginComponent},
     { path: 'registro', component: RegistroComponent},
-    { path: 'perfil', component: PerfilComponent},
+    { path: 'perfil', component: PerfilComponent, canActivate: [authGuard], data: { roles: ['user', 'admin'] } },
     { path: 'recuperar-password', component: RecuperarPasswordComponent},
     // El enlace del email de recuperación (lo genera el backend con este nombre)
     { path: 'change-password', component: RecuperarPasswordComponent},
