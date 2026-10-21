@@ -1,1 +1,0 @@
-import"./chunk-CN_cOfna.js";import{r as G}from"./main-V7J7RFXO.js";export{G as RegistroComponent};
