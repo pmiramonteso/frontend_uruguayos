@@ -83,4 +83,9 @@ export class LoginComponent {
   closeModal() {
     this.modalService.closeModal();
   }
+
+  irARecuperarPassword() {
+    this.closeModal();
+    this.router.navigate(['/recuperar-password']);
+  }
 }

@@ -121,6 +121,14 @@ export class AuthService {
     }
   }
 
+  solicitarCambioPassword(email: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}auth/forgot-password`, { email });
+  }
+
+  cambiarPassword(token: string, password: string): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}auth/change-password`, { token, password });
+  }
+
   logout(): Observable<any> {
     return this.http.post<any>(`${this.apiUrl}auth/logout`, {}, { withCredentials: true }).pipe(
       tap(() => {

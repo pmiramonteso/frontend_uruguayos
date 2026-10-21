@@ -18,6 +18,7 @@ import { MapaComponent } from './componentes/mapa/mapa.component';
 import { PresentacionComponent } from './componentes/presentacion/presentacion.component';
 import { BlogDetalleComponent } from './componentes/blog-detalle/blog-detalle.component';
 import { PoliticaCookiesComponent } from './componentes/cookies/politica-cookies.component';
+import { RecuperarPasswordComponent } from './componentes/user/recuperar-password/recuperar-password.component';
 
 
 export const routes: Routes = [
@@ -30,6 +31,9 @@ export const routes: Routes = [
     { path: 'login', component: LoginComponent},
     { path: 'registro', component: RegistroComponent},
     { path: 'perfil', component: PerfilComponent},
+    { path: 'recuperar-password', component: RecuperarPasswordComponent},
+    // El enlace del email de recuperación (lo genera el backend con este nombre)
+    { path: 'change-password', component: RecuperarPasswordComponent},
 
     { path: 'home', component: HomeComponent},
     { path: 'calendario', component: CalendarioComponent},
