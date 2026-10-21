@@ -90,16 +90,11 @@ export class MapaComponent implements OnInit, AfterViewInit {
     if (this.map && this.markerClusterGroup) {
       // Restaurar icono anterior si existe
       if (this.currentSelectedMarker) {
-        const categoria = this.negocios.find(n => 
-          n.latitud == this.currentSelectedMarker?.getLatLng().lat.toString() && 
-          n.longitud == this.currentSelectedMarker?.getLatLng().lng.toString()
-        )?.categoria;
-        
-        if (categoria === 'restaurante') {
-          this.currentSelectedMarker.setIcon(this.iconRestaurante);
-        } else if (categoria === 'panaderia') {
-          this.currentSelectedMarker.setIcon(this.iconPanaderia);
-        }
+        const anterior = this.negocios.find(n =>
+          Number(n.latitud) === this.currentSelectedMarker?.getLatLng().lat &&
+          Number(n.longitud) === this.currentSelectedMarker?.getLatLng().lng
+        );
+        this.currentSelectedMarker.setIcon(this.iconoPara(anterior?.categoria));
       }
       
       // Buscar y actualizar el icono del marcador correspondiente
@@ -110,18 +105,22 @@ export class MapaComponent implements OnInit, AfterViewInit {
             const negocioLatLng = L.latLng(+negocio.latitud, +negocio.longitud);
             
             if (markerLatLng.lat === negocioLatLng.lat && markerLatLng.lng === negocioLatLng.lng) {
-              // Determina qué icono seleccionado usar
-              if (negocio.categoria === 'restaurante') {
-                layer.setIcon(this.iconRestauranteSelected);
-              } else if (negocio.categoria === 'panaderia') {
-                layer.setIcon(this.iconPanaderiaSelected);
-              }
+              layer.setIcon(this.iconoPara(negocio.categoria, true));
               this.currentSelectedMarker = layer;
             }
           }
         }
       });
     }
+  }
+
+  // Las categorías sin icono propio (pizzeria, centro social, otros...) usan el de
+  // restaurante, para que ningún negocio se quede fuera del mapa
+  iconoPara(categoria: string | undefined, seleccionado = false): Leaflet.Icon {
+    if (categoria === 'panaderia') {
+      return seleccionado ? this.iconPanaderiaSelected : this.iconPanaderia;
+    }
+    return seleccionado ? this.iconRestauranteSelected : this.iconRestaurante;
   }
 
 cerrarModal(): void {
@@ -247,26 +246,12 @@ cerrarModal(): void {
     });
 
     negocios.forEach((negocio) => {
-      if (negocio.latitud && negocio.longitud && negocio.categoria) {
+      if (negocio.latitud && negocio.longitud) {
         const lat = +negocio.latitud;
         const lng = +negocio.longitud;
 
       if (!isNaN(lat) && !isNaN(lng)) {
-        let markerIcon;
-
-        switch (negocio.categoria) {
-          case 'restaurante':
-            markerIcon = this.iconRestaurante;
-            break;
-          case 'panaderia':
-            markerIcon = this.iconPanaderia;
-            break;
-          default:
-            console.warn(`Categoría desconocida para el negocio: ${negocio.categoria}`);
-             return;
-             }
-
-        const marker = L.marker([lat, lng], { icon: markerIcon });
+        const marker = L.marker([lat, lng], { icon: this.iconoPara(negocio.categoria) });
 
         // Clic en el marcador: el mismo modal que al elegir el negocio en la lista
         // (abrirModal ya se encarga de resaltar el icono)
