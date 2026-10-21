@@ -1,1 +1,0 @@
-import"./chunk-oQDntHKO.js";import{t as G}from"./main-Y6UUA32K.js";export{G as LoginComponent};
