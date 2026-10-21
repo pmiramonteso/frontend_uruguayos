@@ -1,14 +1,29 @@
 /// <reference types="leaflet.markercluster" />
-import { Component, OnInit, AfterViewInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy, ChangeDetectionStrategy } from '@angular/core';
 import { Negocio } from '../../interface/negocio';
 import { NegociosService } from '../../service/negocios.service';
 import { FooterComponent } from '../footer/footer.component';
 import type * as Leaflet from 'leaflet';
 
-// Leaflet y leaflet.markercluster se cargan como scripts globales (angular.json).
-// El plugin se registra sobre window.L, así que hay que usar esa misma copia:
-// el módulo ESM importado es otra instancia y no tiene markerClusterGroup.
+// Leaflet y leaflet.markercluster solo se descargan al entrar en /mapa (no en el resto de la web).
+// El plugin se registra sobre la variable global L, que Leaflet crea al cargarse: hay que usar
+// esa misma copia, porque el espacio de nombres ESM es otra instancia y no admite el plugin.
 declare const L: typeof Leaflet;
+
+async function cargarLeaflet(): Promise<void> {
+  const global = globalThis as any;
+  if (global.L?.markerClusterGroup) return;
+  const leaflet: any = await import('leaflet');
+  global.L = leaflet.default ?? { ...leaflet };
+  await import('leaflet.markercluster');
+}
+
+const icono = (url: string, tamano: number, anclaY = tamano): Leaflet.Icon => L.icon({
+  iconUrl: url,
+  iconSize: [tamano, tamano],
+  iconAnchor: [tamano / 2, anclaY],
+  popupAnchor: [0, -anclaY],
+});
 
 @Component({
     selector: 'app-mapa',
@@ -17,7 +32,7 @@ declare const L: typeof Leaflet;
     changeDetection: ChangeDetectionStrategy.Eager,
     styleUrl: './mapa.component.scss'
 })
-export class MapaComponent implements OnInit, AfterViewInit {
+export class MapaComponent implements OnInit, AfterViewInit, OnDestroy {
   map: Leaflet.Map | null = null;
   markerClusterGroup: Leaflet.MarkerClusterGroup | null = null;
   negocios: Negocio[] = [];
@@ -29,40 +44,14 @@ export class MapaComponent implements OnInit, AfterViewInit {
   categoriaSeleccionada: string | null = null;
   categoriasSeleccionadas: string[] = [];
   currentSelectedMarker: Leaflet.Marker | null = null;
-  iconRestaurante = L.icon({
-    iconUrl: '/assets/iconos/menu.png',
-    iconSize: [30, 30], 
-    iconAnchor: [15, 30],
-    popupAnchor: [0, -30],
-  });
+  private destruido = false;
 
-  iconPanaderia = L.icon({
-    iconUrl: '/assets/iconos/panaderia.png',
-    iconSize: [30, 30], 
-    iconAnchor: [15, 30],
-    popupAnchor: [0, -30],
-  });
-
-  iconRestauranteSelected = L.icon({
-    iconUrl: '/assets/iconos/menu.png',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -40],
-  });
-
-  iconPanaderiaSelected = L.icon({
-    iconUrl: '/assets/iconos/panaderia.png',
-    iconSize: [40, 40],
-    iconAnchor: [20, 40],
-    popupAnchor: [0, -40],
-  });
-
-  iconUsuario = L.icon({
-    iconUrl: '/assets/iconos/mi-ubicacion.png',
-    iconSize: [30, 30],
-    iconAnchor: [15, 15],
-    popupAnchor: [0, -15],
-  });
+  // Se crean al cargar Leaflet (crearIconos)
+  iconRestaurante!: Leaflet.Icon;
+  iconPanaderia!: Leaflet.Icon;
+  iconRestauranteSelected!: Leaflet.Icon;
+  iconPanaderiaSelected!: Leaflet.Icon;
+  iconUsuario!: Leaflet.Icon;
 
   constructor(private negociosService: NegociosService) {}
 
@@ -77,9 +66,36 @@ export class MapaComponent implements OnInit, AfterViewInit {
     this.cargarNegocios();
   }
 
-  ngAfterViewInit(): void {
+  async ngAfterViewInit(): Promise<void> {
+    try {
+      await cargarLeaflet();
+    } catch (error) {
+      console.error('No se ha podido cargar el mapa:', error);
+      return;
+    }
+    // Si se ha salido de la página mientras se descargaba, ya no hay donde pintar el mapa
+    if (this.destruido) return;
+
+    this.crearIconos();
     this.iniciarMapa();
     this.obtenerUbicacionUsuario();
+    // Los negocios pueden haber llegado antes que Leaflet: pintarlos ahora
+    if (this.negocios.length) {
+      this.filtrarPorCategorias();
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.destruido = true;
+    this.map?.remove();
+  }
+
+  private crearIconos(): void {
+    this.iconRestaurante = icono('/assets/iconos/menu.png', 30);
+    this.iconPanaderia = icono('/assets/iconos/panaderia.png', 30);
+    this.iconRestauranteSelected = icono('/assets/iconos/menu.png', 40);
+    this.iconPanaderiaSelected = icono('/assets/iconos/panaderia.png', 40);
+    this.iconUsuario = icono('/assets/iconos/mi-ubicacion.png', 30, 15);
   }
 
   abrirModal(negocio: Negocio): void {
