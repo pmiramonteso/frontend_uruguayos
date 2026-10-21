@@ -21,7 +21,7 @@ export class CalendarioComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('calendar') calendarComponent!: FullCalendarComponent;
   eventos: any[] = [];
   eventoSeleccionado: any = null;
-  defaultImageUrl: string = 'assets/img/default-blog.jpg';
+  defaultImageUrl: string = 'assets/img/default-blog.webp';
   private resizeListener: () => void;
   proximosEventos: any[] = [];
   eventosVisibles: number = 10;

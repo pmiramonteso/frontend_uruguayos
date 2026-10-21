@@ -12,7 +12,7 @@ import { environment } from '../../../environments/environment';
 export class PerfilComponent {
   user: any;
   isLoggedIn = false;
-  userImage: string = "/assets/img/avatar-IG.png";
+  userImage: string = "/assets/img/avatar-IG.webp";
 
   constructor(private router: Router, private authService: AuthService) {
     const userData = localStorage.getItem('user');
@@ -24,7 +24,7 @@ export class PerfilComponent {
     this.isLoggedIn = !!user;
     this.userImage = user?.photo
     ?  `${environment.endpoint}assets/img/${user.photo}`
-    : '/assets/img/avatar-IG.png';
+    : '/assets/img/avatar-IG.webp';
   }
 
   changeProfilePicture() {
