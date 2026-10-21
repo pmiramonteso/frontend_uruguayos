@@ -3,10 +3,11 @@ import { Router, NavigationEnd, RouterOutlet } from '@angular/router';
 import { NotificacionComponent } from './componentes/notificacion/notificacion.component';
 import { NavegacionComponent } from './componentes/navegacion/navegacion.component';
 import { CommonModule } from '@angular/common';
+import { BannerCookiesComponent } from './componentes/cookies/banner-cookies.component';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, NotificacionComponent, NavegacionComponent, CommonModule ],
+  imports: [RouterOutlet, NotificacionComponent, NavegacionComponent, CommonModule, BannerCookiesComponent],
   templateUrl: './app.component.html',
   changeDetection: ChangeDetectionStrategy.Eager,
   styleUrl: './app.component.scss'

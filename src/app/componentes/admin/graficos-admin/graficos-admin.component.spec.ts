@@ -1,4 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { provideRouter } from '@angular/router';
 
 import { GraficosAdminComponent } from './graficos-admin.component';
 
@@ -8,7 +9,8 @@ describe('GraficosAdminComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [GraficosAdminComponent]
+      imports: [GraficosAdminComponent],
+      providers: [provideRouter([])]
     })
     .compileComponents();
 
