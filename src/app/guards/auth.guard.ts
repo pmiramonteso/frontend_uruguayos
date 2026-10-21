@@ -2,24 +2,30 @@ import { inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { CanActivateFn } from '@angular/router';
 import { AuthService } from '../service/auth.service';
+import { ModalService } from '../service/modal.service';
 
-export const authGuard: CanActivateFn = (route, state) => {
+// Protege las rutas que tienen data: { roles: [...] }. Es solo para la interfaz:
+// los datos los protege el backend, que comprueba el rol en cada petición.
+export const authGuard: CanActivateFn = (route) => {
 
   const authService = inject(AuthService);
   const router = inject(Router);
+  const modalService = inject(ModalService);
 
   const user = authService.obtenerUsuario();
   const token = authService.getToken();
 
-  const roles: string[] = route.data['roles']; 
+  const permitidos: string[] = route.data['roles'] ?? [];
+  // Tras el login roles es un array; tras el registro llega como texto
+  const rolesUsuario: string[] = Array.isArray(user?.roles) ? user.roles : [user?.roles];
 
-  if (token && user) { 
-    console.log("Roles match:", roles.some(role => user['roles']?.includes(role)));
-    if (roles.some(role => user['roles']?.includes(role))) {
-      return true;
-    }
-}
+  if (token && user && permitidos.some(role => rolesUsuario.includes(role))) {
+    return true;
+  }
 
-router.navigate(['/login']);
-return false;
+  // Sin sesión: a la portada con el login abierto. Con sesión pero sin permiso: solo a la portada.
+  if (!token || !user) {
+    modalService.openModal();
+  }
+  return router.parseUrl('/home');
 };

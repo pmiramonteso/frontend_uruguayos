@@ -25,4 +25,29 @@ for dir in assets media; do
     [ -e "$dir/$f" ] || { echo "borrando $dir/${f#./}"; rm -f "$DEST/$dir/$f"; }
   done
 done
+
+# Redirecciones http -> https y www -> sin www, en un bloque propio al principio del .htaccess.
+# El resto del .htaccess (reglas de la SPA, configuración del backend en Passenger) no se toca.
+# Se excluye .well-known para que la renovación del certificado SSL siga funcionando.
+HT="$DEST/.htaccess"
+INICIO='# BEGIN redirecciones-https-sin-www'
+FIN='# END redirecciones-https-sin-www'
+touch "$HT"
+cp -p "$HT" "$HT.antes-del-despliegue"
+{
+  echo "$INICIO (lo gestiona deploy.sh desde GitHub: no editar a mano)"
+  echo 'RewriteEngine On'
+  echo 'RewriteCond %{REQUEST_URI} !^/\.well-known/'
+  echo 'RewriteCond %{HTTPS} off [OR]'
+  echo 'RewriteCond %{HTTP_HOST} ^www\. [NC]'
+  echo 'RewriteCond %{HTTP_HOST} ^(?:www\.)?(.+)$ [NC]'
+  echo 'RewriteRule ^ https://%1%{REQUEST_URI} [L,R=301]'
+  echo "$FIN"
+  echo
+  # Quitar el bloque de despliegues anteriores (y las líneas en blanco que deja delante)
+  sed "/^$INICIO/,/^$FIN/d" "$HT.antes-del-despliegue" | sed '/./,$!d'
+} > "$HT.nuevo"
+mv "$HT.nuevo" "$HT"
+echo "== .htaccess: bloque de redirecciones al principio ($(wc -l < "$HT") líneas; copia anterior en .htaccess.antes-del-despliegue)"
+
 echo "== Despliegue terminado"

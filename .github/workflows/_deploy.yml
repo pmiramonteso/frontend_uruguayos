@@ -91,3 +91,20 @@ jobs:
             echo "Todavía no se sirve $main..."; sleep 10
           done
           exit 1
+
+      - name: Comprobar redirecciones y que la API sigue respondiendo
+        run: |
+          host="${{ vars.SITE_URL }}"; host="${host#https://}"
+          comprobar() {
+            r=$(curl -s -o /dev/null -w '%{http_code} %{redirect_url}' "$1")
+            echo "$1 -> $r"
+            [ "$r" = "301 $2" ] || { echo "Se esperaba 301 a $2"; exit 1; }
+          }
+          comprobar "http://$host/mapa" "https://$host/mapa"
+          # www solo existe en producción
+          if [ "${{ inputs.environment }}" = "production" ]; then
+            comprobar "https://www.$host/mapa" "https://$host/mapa"
+            comprobar "http://www.$host/mapa" "https://$host/mapa"
+          fi
+          code=$(curl -s -o /dev/null -w '%{http_code}' "https://$host/api/eventos")
+          echo "GET /api/eventos -> $code"; [ "$code" = "200" ]
