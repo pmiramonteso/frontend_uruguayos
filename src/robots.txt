@@ -1,0 +1,7 @@
+User-agent: *
+Disallow: /admin
+Disallow: /perfil
+Disallow: /login
+Disallow: /registro
+
+Sitemap: https://uruguayosenespanya.com/sitemap.xml
