@@ -39,6 +39,9 @@
               <div class="text-red-500 text-sm">La contraseña debe tener al menos 6 caracteres</div>
             }
           }
+          <button type="button" (click)="irARecuperarPassword()" class="mt-1 text-sm text-teal-600 hover:underline">
+            ¿Has olvidado tu contraseña?
+          </button>
         </div>
         
         @if(errorMessage) {
