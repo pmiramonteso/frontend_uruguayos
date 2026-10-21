@@ -1,1 +1,0 @@
-import"./chunk-oQDntHKO.js";import{r as G}from"./main-UZZY3Z42.js";export{G as RegistroComponent};
