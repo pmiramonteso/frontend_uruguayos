@@ -17,6 +17,7 @@ import { GraficosComponent } from './componentes/graficos/graficos.component';
 import { MapaComponent } from './componentes/mapa/mapa.component';
 import { PresentacionComponent } from './componentes/presentacion/presentacion.component';
 import { BlogDetalleComponent } from './componentes/blog-detalle/blog-detalle.component';
+import { PoliticaCookiesComponent } from './componentes/cookies/politica-cookies.component';
 
 
 export const routes: Routes = [
@@ -37,6 +38,7 @@ export const routes: Routes = [
     { path: 'graficos', component: GraficosComponent},
     { path: 'mapa', component: MapaComponent},
     { path: 'presentacion', component: PresentacionComponent},
+    { path: 'cookies', component: PoliticaCookiesComponent},
     { path: '', redirectTo: '/home', pathMatch: 'full' },
     { path: '**', redirectTo: '/home' }
 ];
