@@ -14,7 +14,7 @@ import { environment } from '../../environments/environment';
 })
 export class BlogComponent implements OnInit{
   blogs: Blog[] = [];
-  defaultImageUrl: string = 'assets/img/default-blog.jpg';
+  defaultImageUrl: string = 'assets/img/default-blog.webp';
 
   constructor(private blogService: BlogService) {}
 

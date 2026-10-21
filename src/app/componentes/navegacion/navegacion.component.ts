@@ -21,7 +21,7 @@ export class NavegacionComponent {
   isAdmin = false;
   isLoggedIn = false;
   userName = '';
-  userImage: string = "/assets/img/avatar-IG.png";
+  userImage: string = "/assets/img/avatar-IG.webp";
   isDropdownMenuOpen = false;
 
   constructor(public router: Router, private authService: AuthService, private modalService: ModalService) {}
@@ -34,7 +34,7 @@ export class NavegacionComponent {
     this.userName = user.nombre || '';
     this.userImage = user?.photo
   ?   `${this.baseUrl}assets/img/${user.photo}`
-  : '/assets/img/avatar-IG.png';
+  : '/assets/img/avatar-IG.webp';
     const roles = Array.isArray(user.roles) ? user.roles : [user.roles];
     this.isAdmin = roles.includes('admin');
   } else {
@@ -59,7 +59,7 @@ private limpiarSesion(): void {
     this.isLoggedIn = false;
     this.isAdmin = false;
     this.userName = '';
-    this.userImage = '/assets/img/avatar-IG.png';
+    this.userImage = '/assets/img/avatar-IG.webp';
     localStorage.removeItem('token');
     localStorage.removeItem('user');
   }

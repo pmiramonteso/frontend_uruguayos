@@ -16,7 +16,7 @@ import { environment } from '../../environments/environment';
 })
 export class HomeComponent implements OnInit{
   blogs: Blog[] = [];
-  defaultImageUrl: string = 'assets/img/avatar-IG.jpg';
+  defaultImageUrl: string = 'assets/img/default-blog.webp';
   showModal: 'login' | 'registro' | 'none' = 'none';
 
 constructor(private blogService: BlogService, private modalService: ModalService) {}

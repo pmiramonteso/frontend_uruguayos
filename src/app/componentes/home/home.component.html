@@ -1,4 +1,4 @@
-<div class="relative h-screen bg-cover bg-center mt-0" style="background-image: url('assets/img/mate-pato.JPG');">
+<div class="relative h-screen bg-cover bg-center mt-0" style="background-image: url('assets/img/mate-pato.webp');">
   <div class="absolute inset-0 flex flex-col mt-48 justify-start items-center text-center text-white px-4">
       <h1 class="text-4xl md:text-6xl font-extrabold drop-shadow-lg">COMPARTIR</h1>
       <p class="text-lg md:text-xl mt-4 drop-shadow-md">
@@ -36,7 +36,7 @@
       <div class="cursor-pointer group relative flex flex-col my-6 rounded-3xl max-w-xs mx-auto  transition-shadow duration-300">
         <div class="relative overflow-hidden text-white rounded-3xl shrink-0">
           <img class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-110 object-cover w-full h-full" 
-               src="assets/img/carnaval.jpg" alt="carnaval" />
+               src="assets/img/carnaval.webp" loading="lazy" alt="carnaval" />
         </div>
         <div class="p-4 flex flex-col justify-between flex-1">
           <h6 class="mb-2 text-yellow-400 text-xl font-semibold">
@@ -59,7 +59,7 @@
  <div class="cursor-pointer group relative flex flex-col my-6 rounded-3xl max-w-xs mx-auto transition-shadow duration-300">
   <div class="relative overflow-hidden text-white rounded-3xl flex items-center shrink-0">
     <img class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-110 object-cover w-full h-full" 
-         src="assets/img/uru-esp.jpg" alt="uru-esp">
+         src="assets/img/uru-esp.webp" loading="lazy" alt="uru-esp">
   </div>
   <div class="p-4 flex flex-col justify-between flex-1">
     <h6 class="mb-2 text-yellow-400 text-xl font-semibold">
@@ -82,7 +82,7 @@
       <div class="cursor-pointer group relative flex flex-col my-6 rounded-3xl max-w-xs mx-auto transition-shadow duration-300">
         <div class="relative overflow-hidden text-white rounded-3xl shrink-0">
           <img class="transition-transform duration-500 ease-[cubic-bezier(0.25, 1, 0.5, 1)] transform group-hover:scale-110 object-cover w-full h-full" 
-               src="assets/img/asado.jpg" alt="asado-uruguayo" />
+               src="assets/img/asado.webp" loading="lazy" alt="asado-uruguayo" />
         </div>
         <div class="p-4 flex flex-col justify-between flex-1">
           <h6 class="mb-2 text-yellow-400 text-xl font-semibold">
@@ -113,7 +113,7 @@
     <div class="md:col-span-5 border-4 border-teal-400 rounded-lg p-4 flex flex-col h-full items-center">
       <a [routerLink]="['/blog', blogs[0].id_blog]" class="flex flex-col">
       <img
-        [src]="blogs[0].photo || 'assets/img/default-blog.jpg'"
+        [src]="blogs[0].photo || 'assets/img/default-blog.webp'"
         alt="Blog Principal"
         class="rounded-lg mb-4 max-h-64 object-contain w-full"
       />
@@ -132,7 +132,7 @@
     
         <a [routerLink]="['/blog', blog.id_blog]" class="border-4 border-yellow-400 rounded-lg p-4 flex">
         <img
-        [src]="blog?.photo || 'assets/img/default-blog.jpg'"
+        [src]="blog?.photo || 'assets/img/default-blog.webp'"
         alt="{{ blog?.titulo }}"
           class="rounded-lg mr-4 max-h-48 object-contain w-1/3"
         />

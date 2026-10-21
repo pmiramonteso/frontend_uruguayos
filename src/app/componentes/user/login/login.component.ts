@@ -20,7 +20,7 @@ export class LoginComponent {
   isLoggedIn: boolean = false;
   isModalOpen = false;
   userName: string = '';
-  userImage: string = 'assets/img/default-profile.png'; // Imagen predeterminada
+  userImage: string = 'assets/img/default-profile.webp'; // Imagen predeterminada
 
   constructor(
     private authService: AuthService,

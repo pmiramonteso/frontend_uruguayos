@@ -11,7 +11,7 @@ import { AuthService } from '../../../service/auth.service';
 })
 export class PanelAdminComponent implements OnInit {
   user: any;
-  userImage: string = "/assets/img/avatar-IG.png";
+  userImage: string = "/assets/img/avatar-IG.webp";
 
   constructor(private router: Router, private authService: AuthService) {}
 
